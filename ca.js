@@ -439,7 +439,28 @@ const PROGRAMS = {
             vec2 p = h.p;
             h.cellXY += 0.5;
 
-            vec3 rgb = u_input_read(h.cellXY, 0.0).rgb/2.0+0.5;
+            vec3 stateColor = u_input_read(h.cellXY, 0.0).rgb / 2.0 + 0.5;
+            float t = dot(stateColor, vec3(0.299, 0.587, 0.114));
+
+            // dark blue background
+            vec3 bgDark  = vec3(0.005, 0.015, 0.04);
+            vec3 bgLight = vec3(0.02, 0.05, 0.12);
+
+            // branch colors
+            vec3 cyan   = vec3(0.0, 0.85, 1.0);
+            vec3 purple = vec3(0.45, 0.10, 0.85);
+
+            // keep whole page dark blue first
+            vec3 rgb = mix(bgDark, bgLight, t * 0.25);
+
+            // only brightest parts become branches
+            float branch = smoothstep(0.72, 0.92, t);
+
+            // mostly cyan, a little purple
+            vec3 branchColor = mix(cyan, purple, smoothstep(0.82, 1.0, t) * 0.25);
+
+            // add branch glow only where branch mask is high
+            rgb = mix(rgb, branchColor, branch);
             if (4.0<h.zoom) {
                 vec2 dir = getCellDirection(floor(h.cellXY)+0.5);
                 float s = dir.x, c = dir.y;

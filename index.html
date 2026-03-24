@@ -1,190 +1,307 @@
 <!doctype html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<script src="twgl-full.min.js"></script>
-<script src="dat.gui.min.js"></script>
-<!-- <script src="seedrandom.min.js"></script> -->
-<!-- <script src="live.js"></script> -->
-<script src="pako.min.js"></script>
-<script src="UPNG.min.js"></script>
-<script type='module' src="demo.js"></script>
-<script type='module' src="ca.js"></script>
-<!-- <script src="Tone.js" integrity="sha512-nUjml8mN4CNYqBAy0ndDrd8pJV/eTtBNDsnvNtPqozx9/BccUeWSoKW14qWkQUnhuh8E3m+yra3qdzM68lqPEQ==" crossorigin="anonymous"></script> -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <title>My Portfolio</title>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-15552566-1"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+  <script src="twgl-full.min.js"></script>
+  <script src="dat.gui.min.js"></script>
+  <script src="pako.min.js"></script>
+  <script src="UPNG.min.js"></script>
 
-gtag('config', 'UA-15552566-1');
-</script>
+  <script type="module" src="demo.js"></script>
+  <script type="module" src="ca.js"></script>
 
-<style>
-html, body {
-  margin: 0px;
-  font-family: 'Google Sans', Arial, Helvetica, sans-serif;
-  color: #FFF;
-}
-canvas {
-  width: 100vw;
-  height: 100vh;
-}
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Google Sans', Arial, Helvetica, sans-serif;
+      color: #fff;
+      background: #050b16;
+    }
 
-#fsButton {
-  position: fixed;
-  z-index: 10;
-  bottom: 20px; left:20px;
-}
+    #glCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      z-index: 0;
+    }
 
-.centered { 
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+    .page-overlay {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+    }
 
-#info{
-  width: 300px;
-  background-color: rgba(0, 0, 0, 0.75);
-  padding: 20px;
-  z-index:5;
-}
+    .top-nav {
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
 
-a:link {
-  color: red;
-}
+      background: rgba(10, 20, 40, 0.18);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
 
-a:visited {
-  color: red;
-}
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.28),
+        0 0 18px rgba(0, 220, 255, 0.04);
 
-.hint {
-  font-size: min(10vw, 8vh);
-  pointer-events: none;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 1s;
-  text-align: center;
-}
+      z-index: 20;
+      pointer-events: auto;
+    }
 
-#ui {
-  display: none;
-}
+    .nav-link {
+      color: rgba(255, 255, 255, 0.88);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
 
-#status { 
-  pointer-events: none;
-  position: absolute;
-  top: 0px;
-  width: 100%;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.75);
-  transition: opacity 0.5s;
-  opacity: 0;
-}
+    .nav-link:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-1px);
+      box-shadow: inset 0 1px 0 rgba(0, 220, 255, 0.18);
+    }
 
+    .glass-card {
+      position: absolute;
+      top: 18%;
+      left: 7%;
+      max-width: 520px;
 
-</style>
+      padding: 32px 40px;
+      border-radius: 24px;
 
-<canvas id="glCanvas"></canvas>
+      background: rgba(10, 20, 40, 0.16);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
 
-<div id='ui'>
+      border: 1px solid rgba(255, 255, 255, 0.08);
 
-<div id='status' class=''>sdfsladf;lk</div> 
-<div id='hint' class='centered hint'>⇧<br>⇦ Swipe ⇨</div>
+      color: white;
+      text-align: left;
 
-<div id='info' class='centered'>
-  <b style="font-size: large;">Hexells</b>
-  <span style="font-size: smaller;">by <a href="https://twitter.com/zzznah">Alexander Mordvintsev</a></span>
+      box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.30);
 
-  <p>
-    is a Self-Organising System of cells, that was trained to build textures
-    using neighbour communication only. This work exposes the relation between
-    the life of an individual cell, and the cell collective as a whole.
-  </p>
-  <p> The system is based on
-    <a href="https://distill.pub/selforg/2021/textures/">Neural Cellular Automata</a>.
-  </p>
-  <p style="font-size: large;">
-    Touch to interact, swipe ⇦ or ⇨ to change the pattern.
-    Swipe&nbsp;⇧ to share the pattern with others!
-  </p>
-  <div id="hideBtn" style="text-align: center;"><button>Hide</button></div>
-</div>
+      z-index: 10;
+      pointer-events: auto;
+    }
 
-<button id="fsButton">Fullscreen</button>
+    .glass-card h1 {
+      margin: 0;
+      font-size: 3rem;
+      font-weight: 600;
+      line-height: 1.05;
+    }
 
-<!-- <meter style="position: fixed; top:20px; left: 20px;" id="volume" value="0" min="0" max="100"></meter> -->
+    .glass-card p {
+      margin-top: 14px;
+      margin-bottom: 0;
+      opacity: 0.82;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      max-width: 34rem;
+    }
 
-</div>
+    .project-card {
+      position: absolute;
+      top: 56%;
+      left: 7%;
+      width: 380px;
+      padding: 24px;
+      border-radius: 22px;
 
-<script type="module">
+      background: rgba(10, 20, 40, 0.26);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
 
-import { Demo } from "./demo.js"
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.30);
 
+      color: white;
+      z-index: 10;
+      pointer-events: auto;
 
-const $ = q=>document.querySelector(q);
-const canvas = $('#glCanvas');
+      transition:
+        transform 0.28s ease,
+        box-shadow 0.28s ease,
+        border-color 0.28s ease,
+        background 0.28s ease;
+    }
 
-const isScreenMode = window.self !== window.top;
-console.log('isScreenMode:', isScreenMode);
-if (!isScreenMode) {
-  $('#ui').style.display = 'inline';
-}
+    .project-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 18px;
+      right: 18px;
+      height: 2px;
+      border-radius: 999px;
 
+      background: linear-gradient(
+        90deg,
+        rgba(0, 255, 255, 0),
+        rgba(0, 220, 255, 0.92),
+        rgba(138, 84, 255, 0.55),
+        rgba(0, 255, 255, 0)
+      );
 
-window.demo = new Demo(canvas, isScreenMode);
+      opacity: 0;
+      box-shadow: 0 0 14px rgba(0, 220, 255, 0.35);
+      transition: opacity 0.28s ease;
+    }
 
-const frame = document.body;
-const requestFullscreen = frame.requestFullscreen
-    || frame.webkitRequestFullscreen || frame.msRequestFullscreen;
-if (requestFullscreen === undefined) {
-  $('#fsButton').style.display = 'none';
-}
-$('#fsButton').onclick = ()=>{
-  requestFullscreen.call(frame, {navigationUI: "hide" });
-};
+    .project-card:hover {
+      transform: translateY(-6px);
+      background: rgba(12, 24, 48, 0.34);
+      border-color: rgba(0, 220, 255, 0.18);
+      box-shadow:
+        0 16px 36px rgba(0, 0, 0, 0.34),
+        0 0 18px rgba(0, 220, 255, 0.08);
+    }
 
-document.addEventListener('fullscreenchange', (event) => {
-  if (document.fullscreenElement) {
-    $('#fsButton').style.display = "none";
-  } else {
-    $('#fsButton').style.display = "block";
-  }
-});
+    .project-card:hover::before {
+      opacity: 1;
+    }
 
-$('#hideBtn').onclick = ()=>{
-  $('#info').style.display = 'none';
-  $('#hint').style.opacity = 1;
-  setTimeout(()=>{$('#hint').style.opacity = 0}, 2000);
-}
+    .card-top {
+      margin-bottom: 18px;
+    }
 
+    .project-title {
+      margin: 0 0 10px 0;
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
 
-// $('#hideBtn').onclick = ()=>{
-//   $('#info').style.display = 'none';
-//   $('#hint').classList.add('hint-anim');
+    .project-description {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.82);
+    }
 
-//   const meter = new Tone.Meter({normalRange:true, smoothing: 0.5});
-//   const mic = new Tone.UserMedia().connect(meter);
-//   let maxVol = 0.0;
-//   mic.open().then(() => {
-//     // promise resolves when input is available
-//     console.log("mic open");
+    .card-bottom {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-//     setInterval(() => {
-//       const v = meter.getValue();
-//       $('#volume').value = v*100.0;
-//       if (v>0.04) {
-//         console.log(v);
-//         ca.disturb();
-//       }        
-//     }, 100);
-//   }).catch(e => {
-//     // promise is rejected when the user doesn't have or allow mic access
-//     console.log("mic not open");
-//   });
+    .project-link {
+      color: rgba(180, 240, 255, 0.95);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.25s ease;
+    }
 
-// };
+    .project-link:hover {
+      color: #ffffff;
+    }
 
-</script>
+    @media (max-width: 900px) {
+      .top-nav {
+        top: 18px;
+        gap: 4px;
+        padding: 8px 8px;
+      }
+
+      .nav-link {
+        font-size: 0.88rem;
+        padding: 8px 10px;
+      }
+
+      .glass-card {
+        top: 14%;
+        left: 6%;
+        right: 6%;
+        max-width: none;
+        padding: 26px 24px;
+      }
+
+      .glass-card h1 {
+        font-size: 2.3rem;
+      }
+
+      .project-card {
+        top: 54%;
+        left: 6%;
+        right: 6%;
+        width: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="glCanvas"></canvas>
+
+  <div class="page-overlay">
+    <nav class="top-nav">
+      <a href="#" class="nav-link">Home</a>
+      <a href="#" class="nav-link">Projects</a>
+      <a href="#" class="nav-link">Notes</a>
+      <a href="#" class="nav-link">About</a>
+    </nav>
+
+    <div class="glass-card">
+      <h1>Armita Afroushe</h1>
+      <p>
+        Computer science student exploring machine learning, intelligent systems,
+        and thoughtful technical design.
+      </p>
+    </div>
+
+    <div class="project-card">
+      <div class="card-top">
+        <h3 class="project-title">TinyNav</h3>
+        <p class="project-description">
+          A low-cost autonomous navigation system using TinyML on a microcontroller
+          for real-time obstacle avoidance and embedded intelligence.
+        </p>
+      </div>
+
+      <div class="card-bottom">
+        <a href="#" class="project-link">View Project</a>
+        <a href="#" class="project-link">GitHub</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { Demo } from "./demo.js";
+
+    const canvas = document.querySelector("#glCanvas");
+    const isScreenMode = window.self !== window.top;
+
+    window.demo = new Demo(canvas, isScreenMode);
+  </script>
+</body>
+</html>

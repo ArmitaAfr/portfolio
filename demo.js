@@ -31,10 +31,7 @@ export class Demo {
         //this.sonic = new Sonic(gl, ca);
         const canvas = this.canvas;
 
-        this.shuffledModelIds = models.model_names.map((_, i)=>[Math.random(), i]).sort().map(p=>p[1]);
-        //132, 141, 149, 134, 168, 40, 104, 37, 64, 12
-        this.curModelIndex = this.shuffledModelIds.indexOf(149); // "coral"
-        this.modelId = this.shuffledModelIds[this.curModelIndex];
+        this.modelId = 156; // choose your favorite pattern
         this.ca.paint(0, 0, -1, this.modelId);
 
         this.guesture = null;
@@ -186,24 +183,6 @@ export class Demo {
     }
 
     endGestue(pos) {
-        if (!this.gesture) {
-            return;
-        }
-        if (Date.now() - this.gesture.time < 1000) {
-            const { l, r, u, d } = this.gesture;
-            if (l > 200 && Math.max(r, u, d) < l * 0.25) {
-                this.switchModel(-1);
-            } else if (r > 200 && Math.max(l, u, d) < r * 0.25) {
-                this.switchModel(1);
-            } else if (u > 200 && Math.max(l, r, d) < u * 0.25) {
-                console.log('up!');
-                // const url = document.location.href.split('?')[0]+'?'+Math.random();
-                // document.location.href = url;
-                this.connectControl();
-
-            }
-            
-        }
         this.gesture = null;
     }
 
