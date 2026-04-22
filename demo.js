@@ -22,7 +22,7 @@ export class Demo {
         gui.add(this, 'brushRadius', 1, 40);
         gui.add(this, 'stepPerFrame', 0, 6, 1);
 
-        fetch('models.json').then(r => r.json()).then(models => {
+        fetch(new URL('./models.json', import.meta.url)).then(r => r.json()).then(models => {
             this.ca = new CA(this.gl, models, [160, 160], gui, ()=>this.setup(models));
         })
     }
@@ -31,7 +31,7 @@ export class Demo {
         //this.sonic = new Sonic(gl, ca);
         const canvas = this.canvas;
 
-        this.modelId = 156; // choose your favorite pattern
+        this.modelId = 134; // choose your favorite pattern
         this.ca.paint(0, 0, -1, this.modelId);
 
         this.guesture = null;

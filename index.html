@@ -88,6 +88,25 @@
       box-shadow: inset 0 1px 0 rgba(0, 220, 255, 0.18);
     }
 
+    .nav-link.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* ── sections ── */
+
+    .section {
+      display: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    /* Home */
+
     .glass-card {
       position: absolute;
       top: 18%;
@@ -226,6 +245,30 @@
       color: #ffffff;
     }
 
+    /* Inner pages (Projects, Books, About) */
+
+    .page-content {
+      position: absolute;
+      top: 110px;
+      left: 7%;
+      right: 7%;
+      max-width: 680px;
+      pointer-events: auto;
+    }
+
+    .page-content h2 {
+      margin: 0 0 24px 0;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+
     @media (max-width: 900px) {
       .top-nav {
         top: 18px;
@@ -256,6 +299,12 @@
         right: 6%;
         width: auto;
       }
+
+      .page-content {
+        top: 90px;
+        left: 6%;
+        right: 6%;
+      }
     }
   </style>
 </head>
@@ -265,32 +314,81 @@
 
   <div class="page-overlay">
     <nav class="top-nav">
-      <a href="#" class="nav-link">Home</a>
-      <a href="#" class="nav-link">Projects</a>
-      <a href="#" class="nav-link">Notes</a>
-      <a href="#" class="nav-link">About</a>
+      <a href="#" class="nav-link active" data-page="home">Home</a>
+      <a href="#" class="nav-link" data-page="projects">Projects</a>
+      <a href="#" class="nav-link" data-page="books">Books</a>
+      <a href="#" class="nav-link" data-page="about">About</a>
     </nav>
 
-    <div class="glass-card">
-      <h1>Armita Afroushe</h1>
-      <p>
-        Computer science student exploring machine learning, intelligent systems,
-        and thoughtful technical design.
-      </p>
+    <!-- Home -->
+    <div class="section active" id="section-home">
+      <div class="project-card">
+        <div class="card-top">
+          <h3 class="project-title">TinyNav</h3>
+          <p class="project-description">
+            A low-cost autonomous navigation system using TinyML on a microcontroller
+            for real-time obstacle avoidance and embedded intelligence.
+          </p>
+        </div>
+
+        <div class="card-bottom">
+          <a href="#" class="project-link">View Project</a>
+          <a href="https://github.com/regularpooria/TinyNav" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://arxiv.org/abs/2603.11071" class="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
+        </div>
+      </div>
     </div>
 
-    <div class="project-card">
-      <div class="card-top">
-        <h3 class="project-title">TinyNav</h3>
-        <p class="project-description">
-          A low-cost autonomous navigation system using TinyML on a microcontroller
-          for real-time obstacle avoidance and embedded intelligence.
-        </p>
+    <!-- Projects -->
+    <div class="section" id="section-projects">
+      <div class="page-content">
+        <h2>Projects</h2>
+        <div class="item-list">
+          <div class="project-card" style="position:static;width:auto;top:auto;left:auto;">
+            <div class="card-top">
+              <h3 class="project-title">TinyNav</h3>
+              <p class="project-description">
+                A low-cost autonomous navigation system using TinyML on a microcontroller
+                for real-time obstacle avoidance and embedded intelligence.
+              </p>
+            </div>
+            <div class="card-bottom">
+              <a href="#" class="project-link">View Project</a>
+              <a href="https://github.com/regularpooria/TinyNav" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="https://arxiv.org/abs/2603.11071" class="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="card-bottom">
-        <a href="#" class="project-link">View Project</a>
-        <a href="#" class="project-link">GitHub</a>
+    <!-- Books -->
+    <div class="section" id="section-books">
+      <div class="page-content">
+        <h2>Books</h2>
+        <div class="item-list">
+          <!-- books go here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="section" id="section-about">
+      <div class="page-content">
+        <h2>About</h2>
+        <div class="item-list">
+          <div class="project-card" style="position:static;width:auto;top:auto;left:auto;">
+            <div class="card-top">
+              <h3 class="project-title">What's Behind the Glass</h3>
+              <p class="project-description">
+                On the neural cellular automata living behind this portfolio.
+              </p>
+            </div>
+            <div class="card-bottom">
+              <a href="posts/whats-behind-the-glass.html" class="project-link">Read</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -300,8 +398,18 @@
 
     const canvas = document.querySelector("#glCanvas");
     const isScreenMode = window.self !== window.top;
-
     window.demo = new Demo(canvas, isScreenMode);
+
+    document.querySelectorAll('.nav-link[data-page]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const page = link.dataset.page;
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById('section-' + page).classList.add('active');
+      });
+    });
   </script>
 </body>
 </html>
