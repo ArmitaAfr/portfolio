@@ -268,6 +268,86 @@
       gap: 14px;
     }
 
+    .book-item {
+      border-radius: 14px;
+      background: rgba(10, 20, 40, 0.18);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .book-item:hover {
+      border-color: rgba(255, 255, 255, 0.14);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .book-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+      gap: 12px;
+    }
+
+    .book-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .book-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .book-author {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 0.01em;
+    }
+
+    .book-toggle {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.35);
+      transition: transform 0.3s ease, color 0.25s ease;
+    }
+
+    .book-item.open .book-toggle {
+      transform: rotate(45deg);
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .book-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+      padding: 0 20px;
+    }
+
+    .book-item.open .book-body {
+      max-height: 400px;
+      padding: 0 20px 18px;
+    }
+
+    .book-body p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.62);
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding-top: 14px;
+    }
+
 
     @media (max-width: 900px) {
       .top-nav {
@@ -367,7 +447,25 @@
       <div class="page-content">
         <h2>Books</h2>
         <div class="item-list">
-          <!-- books go here -->
+
+          <div class="book-item">
+            <div class="book-header">
+              <div class="book-meta">
+                <span class="book-title">Why Greatness Cannot Be Planned</span>
+                <span class="book-author">Kenneth Stanley &amp; Joel Lehman</span>
+              </div>
+              <div class="book-toggle">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="7" y1="0" x2="7" y2="14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  <line x1="0" y1="7" x2="14" y2="7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <div class="book-body">
+              <p><!-- your note here --></p>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -399,6 +497,12 @@
     const canvas = document.querySelector("#glCanvas");
     const isScreenMode = window.self !== window.top;
     window.demo = new Demo(canvas, isScreenMode);
+
+    document.querySelectorAll('.book-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.closest('.book-item').classList.toggle('open');
+      });
+    });
 
     document.querySelectorAll('.nav-link[data-page]').forEach(link => {
       link.addEventListener('click', e => {
