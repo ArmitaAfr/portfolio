@@ -245,6 +245,94 @@
       color: #ffffff;
     }
 
+    /* Books accordion */
+
+    .book-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .book-item {
+      border-radius: 14px;
+      background: rgba(10, 20, 40, 0.18);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .book-item:hover {
+      border-color: rgba(255, 255, 255, 0.14);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .book-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+      gap: 12px;
+    }
+
+    .book-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .book-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .book-author {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 0.01em;
+    }
+
+    .book-toggle {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.35);
+      transition: transform 0.3s ease, color 0.25s ease;
+    }
+
+    .book-item.open .book-toggle {
+      transform: rotate(45deg);
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .book-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+      padding: 0 20px;
+    }
+
+    .book-item.open .book-body {
+      max-height: 400px;
+      padding: 0 20px 18px;
+    }
+
+    .book-body p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.62);
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding-top: 14px;
+    }
+
     /* Inner pages (Projects, Books, About) */
 
     .page-content {
@@ -315,7 +403,7 @@
     <nav class="top-nav">
       <a href="#" class="nav-link active" data-page="home">Home</a>
       <a href="#" class="nav-link" data-page="projects">Projects</a>
-      <a href="books.html" class="nav-link">Books</a>
+      <a href="#" class="nav-link" data-page="books">Books</a>
       <a href="#" class="nav-link" data-page="about">About</a>
     </nav>
 
@@ -367,6 +455,9 @@
       </div>
     </div>
 
+    <!-- Books -->
+    <div class="section" id="section-books"></div>
+
     <!-- About -->
     <div class="section" id="section-about">
       <div class="page-content">
@@ -396,13 +487,26 @@
     window.demo = new Demo(canvas, isScreenMode);
 
     document.querySelectorAll('.nav-link[data-page]').forEach(link => {
-      link.addEventListener('click', e => {
+      link.addEventListener('click', async e => {
         e.preventDefault();
         const page = link.dataset.page;
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         link.classList.add('active');
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.getElementById('section-' + page).classList.add('active');
+        const section = document.getElementById('section-' + page);
+        section.classList.add('active');
+
+        if (page === 'books' && !section.hasChildNodes()) {
+          const res = await fetch('books.html');
+          const html = await res.text();
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          section.appendChild(doc.querySelector('.page-content'));
+          section.querySelectorAll('.book-header').forEach(header => {
+            header.addEventListener('click', () => {
+              header.closest('.book-item').classList.toggle('open');
+            });
+          });
+        }
       });
     });
   </script>
