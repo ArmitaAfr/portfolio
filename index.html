@@ -168,6 +168,7 @@
       z-index: 10;
       pointer-events: auto;
 
+      overflow: hidden;
       transition:
         transform 0.28s ease,
         box-shadow 0.28s ease,
@@ -175,26 +176,31 @@
         background 0.28s ease;
     }
 
+    @keyframes shimmer-glow {
+      0%, 100% { box-shadow: 0 0 8px rgba(0, 220, 255, 0.35), 0 0 18px rgba(138, 84, 255, 0.15); }
+      50%       { box-shadow: 0 0 18px rgba(0, 220, 255, 0.75), 0 0 36px rgba(138, 84, 255, 0.45); }
+    }
+
     .project-card::before {
       content: "";
       position: absolute;
       top: 0;
-      left: 18px;
-      right: 18px;
+      left: 0;
+      right: 0;
       height: 2px;
-      border-radius: 999px;
 
       background: linear-gradient(
         90deg,
-        rgba(0, 255, 255, 0),
-        rgba(0, 220, 255, 0.92),
-        rgba(138, 84, 255, 0.55),
-        rgba(0, 255, 255, 0)
+        transparent 0%,
+        rgba(0, 220, 255, 0.9) 25%,
+        rgba(138, 84, 255, 0.7) 75%,
+        transparent 100%
       );
 
       opacity: 0;
-      box-shadow: 0 0 14px rgba(0, 220, 255, 0.35);
       transition: opacity 0.28s ease;
+      animation: shimmer-glow 2s ease-in-out infinite;
+      animation-play-state: paused;
     }
 
     .project-card:hover {
@@ -208,6 +214,7 @@
 
     .project-card:hover::before {
       opacity: 1;
+      animation-play-state: running;
     }
 
     .card-top {
@@ -243,6 +250,23 @@
 
     .project-link:hover {
       color: #ffffff;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-left: auto;
+    }
+
+    .genre-tag {
+      font-size: 0.78rem;
+      padding: 3px 11px;
+      border-radius: 20px;
+      border: 1px solid rgba(193, 164, 255, 0.38);
+      color: rgb(193, 164, 255);
+      background: rgba(193, 164, 255, 0.1);
+      letter-spacing: 0.04em;
     }
 
     /* Books accordion */
@@ -422,6 +446,10 @@
           <a href="#" class="project-link">View Project</a>
           <a href="https://github.com/regularpooria/TinyNav" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="https://arxiv.org/abs/2603.11071" class="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
+          <div class="card-tags">
+            <span class="genre-tag">AI</span>
+            <span class="genre-tag">Robotics</span>
+          </div>
         </div>
       </div>
     </div>
@@ -443,12 +471,23 @@
               <a href="#" class="project-link">View Project</a>
               <a href="https://github.com/regularpooria/TinyNav" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
               <a href="https://arxiv.org/abs/2603.11071" class="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
+              <div class="card-tags">
+                <span class="genre-tag">AI</span>
+                <span class="genre-tag">Robotics</span>
+              </div>
             </div>
           </div>
 
           <div class="project-card" style="position:static;width:auto;top:auto;left:auto;">
             <div class="card-top">
               <h3 class="project-title">Pattern Recognition in Journals</h3>
+            </div>
+            <div class="card-bottom">
+              <div class="card-tags">
+                <span class="genre-tag">Applied NLP</span>
+                <span class="genre-tag">Distant Reading</span>
+                <span class="genre-tag">Quantified Self</span>
+              </div>
             </div>
           </div>
 
@@ -461,6 +500,10 @@
             </div>
             <div class="card-bottom">
               <a href="https://lnkd.in/eKwAWkYW" class="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
+              <div class="card-tags">
+                <span class="genre-tag">AI</span>
+                <span class="genre-tag">Ethics</span>
+              </div>
             </div>
           </div>
         </div>
