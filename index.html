@@ -267,13 +267,23 @@
       color: rgb(193, 164, 255);
       background: rgba(193, 164, 255, 0.1);
       letter-spacing: 0.04em;
+      transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.16s ease;
     }
 
     button.genre-tag {
+      position: relative;
+      overflow: hidden;
       font-family: inherit;
       cursor: pointer;
       appearance: none;
       -webkit-appearance: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .genre-tag:hover,
@@ -282,6 +292,57 @@
       background: rgba(193, 164, 255, 0.24);
       border-color: rgba(214, 196, 255, 0.68);
       box-shadow: 0 0 16px rgba(138, 84, 255, 0.22);
+    }
+
+    button.genre-tag:hover {
+      transform: translateY(-1px);
+    }
+
+    button.genre-tag:active {
+      transform: translateY(1px) scale(0.96);
+      box-shadow: 0 0 10px rgba(138, 84, 255, 0.18);
+    }
+
+    button.genre-tag:focus-visible {
+      outline: 2px solid rgba(214, 196, 255, 0.9);
+      outline-offset: 3px;
+    }
+
+    button.genre-tag.is-pressing::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      border-radius: inherit;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.34) 0%, transparent 58%);
+      animation: genre-click-pulse 0.38s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes genre-click-pulse {
+      from {
+        opacity: 0.85;
+        transform: scale(0.2);
+      }
+      to {
+        opacity: 0;
+        transform: scale(1);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .genre-tag {
+        transition: none;
+      }
+
+      button.genre-tag:hover,
+      button.genre-tag:active {
+        transform: none;
+      }
+
+      button.genre-tag.is-pressing::after {
+        animation: none;
+        opacity: 0;
+      }
     }
 
     /* Books accordion */
@@ -696,12 +757,23 @@
       });
 
       projectFilterButtons.forEach(button => {
-        button.classList.toggle('active', button.dataset.filter === filter);
+        const isActive = button.dataset.filter === filter;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       });
     };
 
     projectFilterButtons.forEach(button => {
-      button.addEventListener('click', () => setProjectFilter(button.dataset.filter));
+      button.setAttribute('aria-pressed', button.classList.contains('active') ? 'true' : 'false');
+      button.addEventListener('click', () => {
+        button.classList.remove('is-pressing');
+        void button.offsetWidth;
+        button.classList.add('is-pressing');
+        setProjectFilter(button.dataset.filter);
+      });
+      button.addEventListener('animationend', () => {
+        button.classList.remove('is-pressing');
+      });
     });
 
     document.querySelectorAll('.nav-link[data-page]').forEach(link => {
