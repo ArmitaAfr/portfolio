@@ -427,8 +427,8 @@
       }
     }
 
-    @media (max-width: 900px) and (pointer: coarse), (max-width: 900px) and (hover: none) {
-      html {
+    @media (max-width: 900px) {
+      html.ios-scroll-fix {
         height: auto;
         min-height: 100%;
         overflow-x: hidden;
@@ -436,18 +436,18 @@
         -webkit-overflow-scrolling: touch;
       }
 
-      body {
+      html.ios-scroll-fix body {
         height: auto;
         min-height: 100%;
         overflow: visible;
       }
 
-      .page-overlay {
+      html.ios-scroll-fix .page-overlay {
         min-height: 100vh;
         height: auto;
       }
 
-      .section {
+      html.ios-scroll-fix .section {
         position: relative;
         min-height: 100vh;
         height: auto;
@@ -455,21 +455,21 @@
       }
 
       @supports (min-height: 100svh) {
-        .page-overlay,
-        .section {
+        html.ios-scroll-fix .page-overlay,
+        html.ios-scroll-fix .section {
           min-height: 100svh;
         }
       }
 
-      .top-nav {
+      html.ios-scroll-fix .top-nav {
         position: fixed;
       }
 
-      .project-card {
+      html.ios-scroll-fix .project-card {
         padding: 20px;
       }
 
-      .page-content {
+      html.ios-scroll-fix .page-content {
         position: relative;
         top: auto;
         left: auto;
@@ -481,20 +481,20 @@
         padding: 90px 6% calc(42px + env(safe-area-inset-bottom));
       }
 
-      #section-projects .item-list {
+      html.ios-scroll-fix #section-projects .item-list {
         grid-template-columns: 1fr;
       }
 
-      .card-bottom {
+      html.ios-scroll-fix .card-bottom {
         align-items: flex-start;
       }
 
-      .card-tags {
+      html.ios-scroll-fix .card-tags {
         width: 100%;
         margin-left: 0;
       }
 
-      .genre-tag {
+      html.ios-scroll-fix .genre-tag {
         line-height: 1.25;
       }
     }
@@ -629,7 +629,15 @@
   <script type="module">
     import { Demo } from "./demo.js";
 
-    const mobileQuery = window.matchMedia('(max-width: 900px) and (pointer: coarse), (max-width: 900px) and (hover: none)');
+    const isiOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const mobileQuery = window.matchMedia('(max-width: 900px)');
+    const useIOSScrollFix = isiOS && mobileQuery.matches;
+    if (useIOSScrollFix) {
+      document.documentElement.classList.add('ios-scroll-fix');
+    }
+
     const canvas = document.querySelector("#glCanvas");
     const isScreenMode = window.self !== window.top;
     window.demo = new Demo(canvas, isScreenMode);
@@ -643,7 +651,7 @@
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         const section = document.getElementById('section-' + page);
         section.classList.add('active');
-        if (mobileQuery.matches) {
+        if (useIOSScrollFix) {
           requestAnimationFrame(() => window.scrollTo(0, 0));
         }
 
