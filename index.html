@@ -390,6 +390,21 @@
     }
 
     @media (max-width: 900px) {
+      html,
+      body {
+        height: 100%;
+      }
+
+      .page-overlay {
+        height: 100dvh;
+      }
+
+      .section {
+        height: 100dvh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
       .top-nav {
         top: 18px;
         gap: 4px;
@@ -418,12 +433,35 @@
         left: 6%;
         right: 6%;
         width: auto;
+        padding: 20px;
       }
 
       .page-content {
-        top: 90px;
-        left: 6%;
-        right: 6%;
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        width: auto;
+        max-width: none;
+        margin: 90px 6% 42px;
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+
+      #section-projects .item-list {
+        grid-template-columns: 1fr;
+      }
+
+      .card-bottom {
+        align-items: flex-start;
+      }
+
+      .card-tags {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .genre-tag {
+        line-height: 1.25;
       }
     }
   </style>
