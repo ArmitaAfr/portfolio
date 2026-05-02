@@ -41,7 +41,6 @@ export class Demo {
             f([e.offsetX, e.offsetY], e);
         };
         const touchEvent = f=>e=>{
-            e.preventDefault();
             const rect = canvas.getBoundingClientRect();
             for (const t of e.touches) {
                 const xy = [t.clientX - rect.left, t.clientY - rect.top];
