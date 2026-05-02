@@ -269,6 +269,21 @@
       letter-spacing: 0.04em;
     }
 
+    button.genre-tag {
+      font-family: inherit;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .genre-tag:hover,
+    .genre-tag.active {
+      color: #ffffff;
+      background: rgba(193, 164, 255, 0.24);
+      border-color: rgba(214, 196, 255, 0.68);
+      box-shadow: 0 0 16px rgba(138, 84, 255, 0.22);
+    }
+
     /* Books accordion */
 
     .book-list {
@@ -369,9 +384,28 @@
     }
 
     .page-content h2 {
-      margin: 0 0 24px 0;
+      margin: 0 0 16px 0;
       font-size: 2rem;
       font-weight: 600;
+    }
+
+    .project-filter-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 0 0 18px;
+      padding: 0 0 13px;
+      border-bottom: 1px solid rgba(193, 164, 255, 0.24);
+    }
+
+    .project-filter-strip .genre-tag {
+      padding: 4px 12px;
+    }
+
+    .project-card.is-hidden {
+      display: none;
     }
 
     .item-list {
@@ -539,8 +573,17 @@
     <div class="section" id="section-projects">
       <div class="page-content">
         <h2>Projects</h2>
+        <div class="project-filter-strip" aria-label="Project genres">
+          <button class="genre-tag active" type="button" data-filter="all">All</button>
+          <button class="genre-tag" type="button" data-filter="AI">AI</button>
+          <button class="genre-tag" type="button" data-filter="Robotics">Robotics</button>
+          <button class="genre-tag" type="button" data-filter="Ethics">Ethics</button>
+          <button class="genre-tag" type="button" data-filter="Applied NLP">Applied NLP</button>
+          <button class="genre-tag" type="button" data-filter="Distant Reading">Distant Reading</button>
+          <button class="genre-tag" type="button" data-filter="Quantified Self">Quantified Self</button>
+        </div>
         <div class="item-list">
-          <div class="project-card" style="position:static;width:auto;top:auto;left:auto;">
+          <div class="project-card" data-tags="AI,Robotics" style="position:static;width:auto;top:auto;left:auto;">
             <div class="card-top">
               <h3 class="project-title">TinyNav</h3>
               <p class="project-description">
@@ -553,13 +596,13 @@
               <a href="https://github.com/regularpooria/TinyNav" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
               <a href="https://arxiv.org/abs/2603.11071" class="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
               <div class="card-tags">
-                <span class="genre-tag">AI</span>
-                <span class="genre-tag">Robotics</span>
+                <button class="genre-tag" type="button" data-filter="AI">AI</button>
+                <button class="genre-tag" type="button" data-filter="Robotics">Robotics</button>
               </div>
             </div>
           </div>
 
-          <div class="project-card" style="position:static;width:auto;top:auto;left:auto;">
+          <div class="project-card" data-tags="AI,Ethics" style="position:static;width:auto;top:auto;left:auto;">
             <div class="card-top">
               <h3 class="project-title">Music AI & Creator Copyright</h3>
               <p class="project-description">
@@ -569,32 +612,32 @@
             <div class="card-bottom">
               <a href="https://lnkd.in/eKwAWkYW" class="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
               <div class="card-tags">
-                <span class="genre-tag">AI</span>
-                <span class="genre-tag">Ethics</span>
+                <button class="genre-tag" type="button" data-filter="AI">AI</button>
+                <button class="genre-tag" type="button" data-filter="Ethics">Ethics</button>
               </div>
             </div>
           </div>
 
-          <div class="project-card" style="position:static;width:auto;top:auto;left:auto;">
+          <div class="project-card" data-tags="Applied NLP,Distant Reading,Quantified Self" style="position:static;width:auto;top:auto;left:auto;">
             <div class="card-top">
               <h3 class="project-title">Pattern Recognition in Journals</h3>
             </div>
             <div class="card-bottom">
               <div class="card-tags">
-                <span class="genre-tag">Applied NLP</span>
-                <span class="genre-tag">Distant Reading</span>
-                <span class="genre-tag">Quantified Self</span>
+                <button class="genre-tag" type="button" data-filter="Applied NLP">Applied NLP</button>
+                <button class="genre-tag" type="button" data-filter="Distant Reading">Distant Reading</button>
+                <button class="genre-tag" type="button" data-filter="Quantified Self">Quantified Self</button>
               </div>
             </div>
           </div>
 
-          <div class="project-card" style="position:static;width:auto;top:auto;left:auto;">
+          <div class="project-card" data-tags="Robotics" style="position:static;width:auto;top:auto;left:auto;">
             <div class="card-top">
               <h3 class="project-title">Under construction... :)</h3>
             </div>
             <div class="card-bottom">
               <div class="card-tags">
-                <span class="genre-tag">Robotics</span>
+                <button class="genre-tag" type="button" data-filter="Robotics">Robotics</button>
               </div>
             </div>
           </div>
@@ -641,6 +684,25 @@
     const canvas = document.querySelector("#glCanvas");
     const isScreenMode = window.self !== window.top;
     window.demo = new Demo(canvas, isScreenMode);
+
+    const projectSection = document.getElementById('section-projects');
+    const projectCards = projectSection.querySelectorAll('.item-list .project-card');
+    const projectFilterButtons = projectSection.querySelectorAll('[data-filter]');
+
+    const setProjectFilter = filter => {
+      projectCards.forEach(card => {
+        const tags = (card.dataset.tags || '').split(',').map(tag => tag.trim());
+        card.classList.toggle('is-hidden', filter !== 'all' && !tags.includes(filter));
+      });
+
+      projectFilterButtons.forEach(button => {
+        button.classList.toggle('active', button.dataset.filter === filter);
+      });
+    };
+
+    projectFilterButtons.forEach(button => {
+      button.addEventListener('click', () => setProjectFilter(button.dataset.filter));
+    });
 
     document.querySelectorAll('.nav-link[data-page]').forEach(link => {
       link.addEventListener('click', async e => {
