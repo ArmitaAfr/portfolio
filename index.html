@@ -390,34 +390,7 @@
     }
 
     @media (max-width: 900px) {
-      html {
-        height: auto;
-        min-height: 100%;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      body {
-        height: auto;
-        min-height: 100%;
-        overflow: visible;
-      }
-
-      .page-overlay {
-        min-height: 100vh;
-        height: auto;
-      }
-
-      .section {
-        position: relative;
-        min-height: 100vh;
-        height: auto;
-        overflow: visible;
-      }
-
       .top-nav {
-        position: fixed;
         top: 18px;
         gap: 4px;
         padding: 8px 8px;
@@ -445,6 +418,54 @@
         left: 6%;
         right: 6%;
         width: auto;
+      }
+
+      .page-content {
+        top: 90px;
+        left: 6%;
+        right: 6%;
+      }
+    }
+
+    @media (max-width: 900px) and (pointer: coarse), (max-width: 900px) and (hover: none) {
+      html {
+        height: auto;
+        min-height: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      body {
+        height: auto;
+        min-height: 100%;
+        overflow: visible;
+      }
+
+      .page-overlay {
+        min-height: 100vh;
+        height: auto;
+      }
+
+      .section {
+        position: relative;
+        min-height: 100vh;
+        height: auto;
+        overflow: visible;
+      }
+
+      @supports (min-height: 100svh) {
+        .page-overlay,
+        .section {
+          min-height: 100svh;
+        }
+      }
+
+      .top-nav {
+        position: fixed;
+      }
+
+      .project-card {
         padding: 20px;
       }
 
@@ -458,13 +479,6 @@
         box-sizing: border-box;
         margin: 0;
         padding: 90px 6% calc(42px + env(safe-area-inset-bottom));
-      }
-
-      @supports (min-height: 100svh) {
-        .page-overlay,
-        .section {
-          min-height: 100svh;
-        }
       }
 
       #section-projects .item-list {
@@ -615,7 +629,7 @@
   <script type="module">
     import { Demo } from "./demo.js";
 
-    const mobileQuery = window.matchMedia('(max-width: 900px)');
+    const mobileQuery = window.matchMedia('(max-width: 900px) and (pointer: coarse), (max-width: 900px) and (hover: none)');
     const canvas = document.querySelector("#glCanvas");
     const isScreenMode = window.self !== window.top;
     window.demo = new Demo(canvas, isScreenMode);

@@ -41,6 +41,12 @@ export class Demo {
             f([e.offsetX, e.offsetY], e);
         };
         const touchEvent = f=>e=>{
+            const shouldLetPageScroll =
+                window.matchMedia &&
+                window.matchMedia("(max-width: 900px) and (pointer: coarse), (max-width: 900px) and (hover: none)").matches;
+            if (!shouldLetPageScroll) {
+                e.preventDefault();
+            }
             const rect = canvas.getBoundingClientRect();
             for (const t of e.touches) {
                 const xy = [t.clientX - rect.left, t.clientY - rect.top];
