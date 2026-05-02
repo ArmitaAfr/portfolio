@@ -10,6 +10,9 @@
   <script src="pako.min.js"></script>
   <script src="UPNG.min.js"></script>
 
+  <script type="module" src="demo.js"></script>
+  <script type="module" src="ca.js"></script>
+
   <style>
     html, body {
       margin: 0;
@@ -612,55 +615,37 @@
   <script type="module">
     import { Demo } from "./demo.js";
 
-    {
-      const mobileQuery = window.matchMedia('(max-width: 900px)');
+    const mobileQuery = window.matchMedia('(max-width: 900px)');
+    const canvas = document.querySelector("#glCanvas");
+    const isScreenMode = window.self !== window.top;
+    window.demo = new Demo(canvas, isScreenMode);
 
-      const scrollToTop = () => {
-        if (!mobileQuery.matches) return;
-        requestAnimationFrame(() => window.scrollTo(0, 0));
-      };
-
-      document.querySelectorAll('.nav-link[data-page]').forEach(link => {
-        link.addEventListener('click', async e => {
-          e.preventDefault();
-          const page = link.dataset.page;
-          document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-          link.classList.add('active');
-          document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-          const section = document.getElementById('section-' + page);
-          section.classList.add('active');
-          scrollToTop();
-
-          if (page === 'books' && !section.hasChildNodes()) {
-            const res = await fetch('books.html');
-            const html = await res.text();
-            const doc = new DOMParser().parseFromString(html, 'text/html');
-            section.appendChild(doc.querySelector('.page-content'));
-            section.querySelectorAll('.book-header').forEach(header => {
-              header.addEventListener('click', () => {
-                header.closest('.book-item').classList.toggle('open');
-              });
-            });
-          }
-        });
-      });
-
-      const canvas = document.querySelector("#glCanvas");
-
-      try {
-        const canRunDemo =
-          canvas &&
-          'WebGLRenderingContext' in window &&
-          canvas.getContext("webgl", { alpha: false });
-
-        if (canRunDemo) {
-          const isScreenMode = window.self !== window.top;
-          window.demo = new Demo(canvas, isScreenMode);
+    document.querySelectorAll('.nav-link[data-page]').forEach(link => {
+      link.addEventListener('click', async e => {
+        e.preventDefault();
+        const page = link.dataset.page;
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        const section = document.getElementById('section-' + page);
+        section.classList.add('active');
+        if (mobileQuery.matches) {
+          requestAnimationFrame(() => window.scrollTo(0, 0));
         }
-      } catch (error) {
-        console.warn('Background animation disabled:', error);
-      }
-    }
+
+        if (page === 'books' && !section.hasChildNodes()) {
+          const res = await fetch('books.html');
+          const html = await res.text();
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          section.appendChild(doc.querySelector('.page-content'));
+          section.querySelectorAll('.book-header').forEach(header => {
+            header.addEventListener('click', () => {
+              header.closest('.book-item').classList.toggle('open');
+            });
+          });
+        }
+      });
+    });
   </script>
 </body>
 </html>
