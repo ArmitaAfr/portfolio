@@ -5,14 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
   <title>Armita</title>
 
-  <script src="twgl-full.min.js"></script>
-  <script src="dat.gui.min.js"></script>
-  <script src="pako.min.js"></script>
-  <script src="UPNG.min.js"></script>
-
-  <script type="module" src="demo.js"></script>
-  <script type="module" src="ca.js"></script>
-
   <style>
     html, body {
       margin: 0;
@@ -390,28 +382,39 @@
     }
 
     @media (max-width: 900px) {
-      html,
-      body {
+      html {
         height: auto;
         min-height: 100%;
         overflow-x: hidden;
-        overflow-y: auto;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      body {
+        height: auto;
+        min-height: 100%;
+        overflow: visible;
+      }
+
+      #glCanvas {
+        pointer-events: none;
       }
 
       .page-overlay {
-        min-height: 100dvh;
+        min-height: 100vh;
         height: auto;
         pointer-events: auto;
       }
 
       .section {
-        min-height: 100dvh;
+        position: relative;
+        min-height: 100vh;
         height: auto;
         overflow: visible;
-        -webkit-overflow-scrolling: touch;
       }
 
       .top-nav {
+        position: fixed;
         top: 18px;
         gap: 4px;
         padding: 8px 8px;
@@ -447,10 +450,18 @@
         top: auto;
         left: auto;
         right: auto;
-        width: auto;
+        width: 100%;
         max-width: none;
-        margin: 90px 6% 42px;
-        padding-bottom: env(safe-area-inset-bottom);
+        box-sizing: border-box;
+        margin: 0;
+        padding: 90px 6% calc(42px + env(safe-area-inset-bottom));
+      }
+
+      @supports (min-height: 100svh) {
+        .page-overlay,
+        .section {
+          min-height: 100svh;
+        }
       }
 
       #section-projects .item-list {
@@ -598,36 +609,82 @@
     </div>
   </div>
 
-  <script type="module">
-    import { Demo } from "./demo.js";
+  <script>
+    (() => {
+      const mobileQuery = window.matchMedia('(max-width: 900px)');
+      const isiOS =
+        /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-    const canvas = document.querySelector("#glCanvas");
-    const isScreenMode = window.self !== window.top;
-    window.demo = new Demo(canvas, isScreenMode);
+      const scrollToTop = () => {
+        if (!mobileQuery.matches) return;
+        requestAnimationFrame(() => window.scrollTo(0, 0));
+      };
 
-    document.querySelectorAll('.nav-link[data-page]').forEach(link => {
-      link.addEventListener('click', async e => {
-        e.preventDefault();
-        const page = link.dataset.page;
-        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        const section = document.getElementById('section-' + page);
-        section.classList.add('active');
+      document.querySelectorAll('.nav-link[data-page]').forEach(link => {
+        link.addEventListener('click', async e => {
+          e.preventDefault();
+          const page = link.dataset.page;
+          document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+          const section = document.getElementById('section-' + page);
+          section.classList.add('active');
+          scrollToTop();
 
-        if (page === 'books' && !section.hasChildNodes()) {
-          const res = await fetch('books.html');
-          const html = await res.text();
-          const doc = new DOMParser().parseFromString(html, 'text/html');
-          section.appendChild(doc.querySelector('.page-content'));
-          section.querySelectorAll('.book-header').forEach(header => {
-            header.addEventListener('click', () => {
-              header.closest('.book-item').classList.toggle('open');
+          if (page === 'books' && !section.hasChildNodes()) {
+            const res = await fetch('books.html');
+            const html = await res.text();
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            section.appendChild(doc.querySelector('.page-content'));
+            section.querySelectorAll('.book-header').forEach(header => {
+              header.addEventListener('click', () => {
+                header.closest('.book-item').classList.toggle('open');
+              });
             });
-          });
-        }
+          }
+        });
       });
-    });
+
+      const loadScript = src => new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+
+      const initDemo = async () => {
+        const canvas = document.querySelector('#glCanvas');
+        const shouldRunDemo =
+          canvas &&
+          !mobileQuery.matches &&
+          !isiOS &&
+          'WebGLRenderingContext' in window;
+
+        if (!shouldRunDemo) {
+          if (canvas) canvas.setAttribute('aria-hidden', 'true');
+          return;
+        }
+
+        try {
+          await Promise.all([
+            loadScript('twgl-full.min.js'),
+            loadScript('dat.gui.min.js'),
+            loadScript('pako.min.js'),
+            loadScript('UPNG.min.js')
+          ]);
+          const { Demo } = await import('./demo.js');
+          const isScreenMode = window.self !== window.top;
+          window.demo = new Demo(canvas, isScreenMode);
+        } catch (error) {
+          console.warn('Background animation disabled:', error);
+          canvas.style.display = 'none';
+        }
+      };
+
+      initDemo();
+    })();
   </script>
 </body>
 </html>
