@@ -392,16 +392,22 @@
     @media (max-width: 900px) {
       html,
       body {
-        height: 100%;
+        height: auto;
+        min-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
       }
 
       .page-overlay {
-        height: 100dvh;
+        min-height: 100dvh;
+        height: auto;
+        pointer-events: auto;
       }
 
       .section {
-        height: 100dvh;
-        overflow-y: auto;
+        min-height: 100dvh;
+        height: auto;
+        overflow: visible;
         -webkit-overflow-scrolling: touch;
       }
 
