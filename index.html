@@ -532,11 +532,21 @@
       }
 
       .nb-wrapper {
-        padding: 90px 6% 40px;
+        padding: 90px 5% 40px;
       }
 
       .nb-gutter {
-        width: 52px;
+        display: none;
+      }
+
+      .nb-body {
+        font-size: 11px;
+        overflow-x: auto;
+      }
+
+      .nb-worlds {
+        flex-wrap: wrap;
+        gap: 8px 14px;
       }
     }
 
@@ -616,7 +626,11 @@
       }
 
       html.ios-scroll-fix .nb-wrapper {
-        padding: 90px 6% calc(42px + env(safe-area-inset-bottom));
+        padding: 90px 5% calc(42px + env(safe-area-inset-bottom));
+        max-width: none;
+        margin: 0;
+        box-sizing: border-box;
+        width: 100%;
       }
     }
 
