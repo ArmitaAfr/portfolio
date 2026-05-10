@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
   <title>Books — Armita</title>
 
-  <script src="twgl-full.min.js"></script>
-  <script src="dat.gui.min.js"></script>
-  <script src="pako.min.js"></script>
-  <script src="UPNG.min.js"></script>
+  <script src="./vendor/twgl-full.min.js"></script>
+  <script src="./vendor/dat.gui.min.js"></script>
+  <script src="./vendor/pako.min.js"></script>
+  <script src="./vendor/UPNG.min.js"></script>
 
-  <script type="module" src="demo.js"></script>
-  <script type="module" src="ca.js"></script>
+  <script type="module" src="./scripts/demo.js"></script>
+  <script type="module" src="./scripts/ca.js"></script>
 
   <style>
     html, body {
@@ -217,10 +217,10 @@
 
   <div class="page-overlay">
     <nav class="top-nav">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="projects.html" class="nav-link">Projects</a>
-      <a href="books.html" class="nav-link active">Books</a>
-      <a href="about.html" class="nav-link">About</a>
+      <a href="./index.html" class="nav-link">Home</a>
+      <a href="./projects.html" class="nav-link">Projects</a>
+      <a href="./books.html" class="nav-link active">Books</a>
+      <a href="./about.html" class="nav-link">About</a>
     </nav>
 
     <div class="page-content">
@@ -287,7 +287,7 @@
 
 
   <script type="module">
-    import { Demo } from "./demo.js";
+    import { Demo } from "./scripts/demo.js";
     const canvas = document.querySelector("#glCanvas");
     window.demo = new Demo(canvas, false);
   </script>

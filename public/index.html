@@ -9,13 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
 
-  <script src="twgl-full.min.js"></script>
-  <script src="dat.gui.min.js"></script>
-  <script src="pako.min.js"></script>
-  <script src="UPNG.min.js"></script>
+  <script src="./vendor/twgl-full.min.js"></script>
+  <script src="./vendor/dat.gui.min.js"></script>
+  <script src="./vendor/pako.min.js"></script>
+  <script src="./vendor/UPNG.min.js"></script>
 
-  <script type="module" src="demo.js"></script>
-  <script type="module" src="ca.js"></script>
+  <script type="module" src="./scripts/demo.js"></script>
+  <script type="module" src="./scripts/ca.js"></script>
 
   <style>
     html, body {
@@ -486,12 +486,91 @@
     }
 
     #section-projects .page-content {
-      max-width: none;
+      max-width: 1220px;
     }
 
     #section-projects .item-list {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    #section-projects .project-card {
+      border-radius: 16px;
+      aspect-ratio: 7 / 6;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 18px;
+    }
+
+    #section-projects .card-top {
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    #section-projects .project-description {
+      text-align: left;
+    }
+
+    #section-projects .card-bottom {
+      margin-top: auto;
+      align-items: flex-end;
+    }
+
+    #section-projects .project-card.tinynav-card {
+      padding: 16px;
+    }
+
+    #section-projects .project-card.tinynav-card .card-top {
+      margin-bottom: 10px;
+    }
+
+    #section-projects .project-card.tinynav-card .project-description {
+      line-height: 1.55;
+    }
+
+    @media (max-width: 1400px) and (min-width: 901px) {
+      #section-projects .item-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 1120px) and (min-width: 901px) {
+      #section-projects .item-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 901px) {
+      #section-projects,
+      #section-books,
+      #section-about {
+        overflow-y: auto;
+        pointer-events: auto;
+      }
+
+      #section-projects .page-content,
+      #section-books .page-content,
+      #section-about .page-content {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        width: auto;
+        box-sizing: border-box;
+        margin: 110px 7% 48px;
+      }
+
+      #section-projects .page-content {
+        width: min(1220px, calc(100% - 14%));
+        margin: 110px auto 48px;
+      }
+
+      #section-books .page-content,
+      #section-about .page-content {
+        max-width: 680px;
+      }
     }
 
     @media (max-width: 900px) {
@@ -607,6 +686,11 @@
       html.ios-scroll-fix #section-projects .item-list {
         grid-template-columns: 1fr;
       }
+
+      html.ios-scroll-fix #section-projects .project-card {
+        aspect-ratio: auto;
+      }
+
 
       html.ios-scroll-fix .card-bottom {
         align-items: flex-start;
@@ -976,7 +1060,7 @@
           <button class="genre-tag" type="button" data-filter="Quantified Self">Quantified Self</button>
         </div>
         <div class="item-list">
-          <div class="project-card" data-tags="AI,Robotics" style="position:static;width:auto;top:auto;left:auto;">
+          <div class="project-card tinynav-card" data-tags="AI,Robotics" style="position:static;width:auto;top:auto;left:auto;">
             <div class="card-top">
               <h3 class="project-title">TinyNav</h3>
               <p class="project-description">
@@ -999,7 +1083,7 @@
             <div class="card-top">
               <h3 class="project-title">Music AI & Creator Copyright</h3>
               <p class="project-description">
-                An ethical framework for generative music AI that uses federated learning, digital watermarking, and fingerprinting to detect unauthorized use of copyrighted music and ensure fair compensation for creators.
+                An ethical music AI framework focused on copyright protection and fair creator compensation.
               </p>
             </div>
             <div class="card-bottom">
@@ -1024,16 +1108,6 @@
             </div>
           </div>
 
-          <div class="project-card" data-tags="Robotics" style="position:static;width:auto;top:auto;left:auto;">
-            <div class="card-top">
-              <h3 class="project-title">Under construction... :)</h3>
-            </div>
-            <div class="card-bottom">
-              <div class="card-tags">
-                <button class="genre-tag" type="button" data-filter="Robotics">Robotics</button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -1054,7 +1128,12 @@
               </p>
             </div>
             <div class="card-bottom">
-              <a href="posts/whats-behind-the-glass.html" class="project-link">Read</a>
+              <a href="./posts/whats-behind-the-glass.html" class="project-link">Read</a>
+            </div>
+          </div>
+          <div class="project-card" style="position:static;width:auto;top:auto;left:auto;">
+            <div class="card-top">
+              <h3 class="project-title">Pattern recognition though Journals</h3>
             </div>
           </div>
         </div>
@@ -1063,7 +1142,7 @@
   </div>
 
   <script type="module">
-    import { Demo } from "./demo.js";
+    import { Demo } from "./scripts/demo.js";
 
     const isiOS =
       /iPad|iPhone|iPod/.test(navigator.userAgent) ||
@@ -1122,7 +1201,7 @@
         }
 
         if (page === 'books' && !section.hasChildNodes()) {
-          const res = await fetch('books.html');
+          const res = await fetch('./books.html');
           const html = await res.text();
           const doc = new DOMParser().parseFromString(html, 'text/html');
           section.appendChild(doc.querySelector('.page-content'));

@@ -22,7 +22,7 @@ export class Demo {
         gui.add(this, 'brushRadius', 1, 40);
         gui.add(this, 'stepPerFrame', 0, 6, 1);
 
-        fetch(new URL('./models.json', import.meta.url)).then(r => r.json()).then(models => {
+        fetch(new URL('../data/models.json', import.meta.url)).then(r => r.json()).then(models => {
             this.ca = new CA(this.gl, models, [160, 160], gui, ()=>this.setup(models));
         })
     }

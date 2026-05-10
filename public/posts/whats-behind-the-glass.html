@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
   <title>What's Behind the Glass — Armita</title>
 
-  <script src="../twgl-full.min.js"></script>
-  <script src="../dat.gui.min.js"></script>
-  <script src="../pako.min.js"></script>
-  <script src="../UPNG.min.js"></script>
+  <script src="../vendor/twgl-full.min.js"></script>
+  <script src="../vendor/dat.gui.min.js"></script>
+  <script src="../vendor/pako.min.js"></script>
+  <script src="../vendor/UPNG.min.js"></script>
 
   <style>
     html, body {
@@ -89,7 +89,7 @@
   </div>
 
   <script type="module">
-    import { Demo } from "../demo.js";
+    import { Demo } from "../scripts/demo.js";
     const canvas = document.querySelector("#glCanvas");
     window.demo = new Demo(canvas, false);
   </script>
