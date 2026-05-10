@@ -555,6 +555,23 @@
       z-index: 1;
     }
 
+    #section-projects .project-card > .card-bg-image {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background-image: var(--card-bg-image, none);
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.72;
+      transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #section-projects .project-card:hover > .card-bg-image {
+      opacity: 0.92;
+    }
+
     #section-projects .project-card.tinynav-card {
       padding: 16px;
     }
@@ -1346,6 +1363,7 @@
         </div>
         <div class="item-list">
           <div class="project-card tinynav-card glass-card-frost" data-tags="AI,Robotics" style="position:static;width:auto;top:auto;left:auto;">
+            <div class="card-bg-image"></div>
             <div class="card-top">
               <h3 class="project-title">TinyNav</h3>
               <p class="project-description">
@@ -1365,6 +1383,7 @@
           </div>
 
           <div class="project-card glass-card-prism" data-tags="AI,Ethics" style="position:static;width:auto;top:auto;left:auto;">
+            <div class="card-bg-image"></div>
             <div class="card-top">
               <h3 class="project-title">Music AI & Creator Copyright</h3>
               <p class="project-description">
@@ -1381,6 +1400,7 @@
           </div>
 
           <div class="project-card glass-card-atmos" data-tags="Applied NLP,Quantified Self" style="position:static;width:auto;top:auto;left:auto;">
+            <div class="card-bg-image"></div>
             <div class="card-top">
               <h3 class="project-title">Map of a Mind</h3>
               <p class="project-description">
