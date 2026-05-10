@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <title>What's Behind the Glass — Armita</title>
+
+  <script src="/vendor/twgl-full.min.js"></script>
+  <script src="/vendor/dat.gui.min.js"></script>
+  <script src="/vendor/pako.min.js"></script>
+  <script src="/vendor/UPNG.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: 'Google Sans', Arial, Helvetica, sans-serif;
+      color: #fff;
+      background: #050b16;
+    }
+
+    #glCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      z-index: 0;
+      filter: blur(6px);
+      transform: scale(1.04);
+    }
+
+    .post-container {
+      position: relative;
+      z-index: 10;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 80px 32px 120px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 48px;
+      color: rgba(180, 240, 255, 0.85);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #ffffff;
+    }
+
+    h1 {
+      margin: 0 0 12px 0;
+      font-size: 2.4rem;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .post-meta {
+      margin: 0 0 48px 0;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .post-body p {
+      margin: 0 0 24px 0;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.82);
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="glCanvas"></canvas>
+
+  <div class="post-container">
+    <a href="/index.html" class="back-link">← Back</a>
+
+    <h1>What's Behind the Glass</h1>
+    <p class="post-meta">Armita</p>
+
+    <div class="post-body">
+      <!-- your writing goes here -->
+    </div>
+  </div>
+
+  <script type="module">
+    import { Demo } from "/scripts/demo.js";
+    const canvas = document.querySelector("#glCanvas");
+    window.demo = new Demo(canvas, false);
+  </script>
+</body>
+</html>

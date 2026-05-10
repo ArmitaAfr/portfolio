@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <title>About — Armita</title>
+
+  <script src="/vendor/twgl-full.min.js"></script>
+  <script src="/vendor/dat.gui.min.js"></script>
+  <script src="/vendor/pako.min.js"></script>
+  <script src="/vendor/UPNG.min.js"></script>
+
+  <script type="module" src="/scripts/demo.js"></script>
+  <script type="module" src="/scripts/ca.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Google Sans', Arial, Helvetica, sans-serif;
+      color: #fff;
+      background: #050b16;
+    }
+
+    #glCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      z-index: 0;
+    }
+
+    .page-overlay {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .top-nav {
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(10, 20, 40, 0.18);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.28),
+        0 0 18px rgba(0, 220, 255, 0.04);
+      z-index: 20;
+      pointer-events: auto;
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.88);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .nav-link:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-1px);
+      box-shadow: inset 0 1px 0 rgba(0, 220, 255, 0.18);
+    }
+
+    .nav-link.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .page-content {
+      position: absolute;
+      top: 110px;
+      left: 7%;
+      right: 7%;
+      max-width: 680px;
+      pointer-events: auto;
+    }
+
+    .page-content h2 {
+      margin: 0 0 24px 0;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .top-nav {
+        top: 18px;
+        gap: 4px;
+        padding: 8px 8px;
+      }
+
+      .nav-link {
+        font-size: 0.88rem;
+        padding: 8px 10px;
+      }
+
+      .page-content {
+        top: 90px;
+        left: 6%;
+        right: 6%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="glCanvas"></canvas>
+
+  <div class="page-overlay">
+    <nav class="top-nav">
+      <a href="/index.html" class="nav-link">Home</a>
+      <a href="/projects.html" class="nav-link">Projects</a>
+      <a href="/books.html" class="nav-link">Books</a>
+      <a href="/about.html" class="nav-link active">About</a>
+    </nav>
+
+    <div class="page-content">
+      <h2>About</h2>
+      <!-- about content goes here -->
+    </div>
+  </div>
+
+  <script type="module">
+    import { Demo } from "/scripts/demo.js";
+    const canvas = document.querySelector("#glCanvas");
+    window.demo = new Demo(canvas, false);
+  </script>
+</body>
+</html>
