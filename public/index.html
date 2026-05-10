@@ -512,6 +512,20 @@
 
     #section-projects .project-description {
       text-align: left;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(14px);
+      transition:
+        max-height 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #section-projects .project-card:hover .project-description {
+      max-height: 200px;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     #section-projects .card-bottom {
