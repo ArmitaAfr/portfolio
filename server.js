@@ -20,6 +20,8 @@ const routeMap = new Map([
   ["/projects.html", "projects.html"],
   ["/screen", "screen.html"],
   ["/screen.html", "screen.html"],
+  ["/posts/map-of-a-mind", "posts/map-of-a-mind.html"],
+  ["/posts/map-of-a-mind.html", "posts/map-of-a-mind.html"],
   ["/posts/whats-behind-the-glass", "posts/whats-behind-the-glass.html"],
   ["/posts/whats-behind-the-glass.html", "posts/whats-behind-the-glass.html"]
 ]);

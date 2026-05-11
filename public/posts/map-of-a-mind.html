@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <title>Map of a Mind - Armita</title>
+
+  <script src="../vendor/twgl-full.min.js"></script>
+  <script src="../vendor/dat.gui.min.js"></script>
+  <script src="../vendor/pako.min.js"></script>
+  <script src="../vendor/UPNG.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
+      color: #fff;
+      background: #050b16;
+    }
+
+    #glCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      z-index: 0;
+      filter: blur(6px);
+      transform: scale(1.04);
+    }
+
+    .post-container {
+      position: relative;
+      z-index: 10;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 32px 120px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 48px;
+      color: rgba(180, 240, 255, 0.85);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #ffffff;
+    }
+
+    h1 {
+      margin: 0 0 12px 0;
+      font-family: "Space Grotesk", Arial, Helvetica, sans-serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      line-height: 1.08;
+    }
+
+    .post-meta {
+      margin: 0 0 40px 0;
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.48);
+    }
+
+    .post-body {
+      padding: 28px 30px;
+      border-radius: 22px;
+      background: rgba(10, 20, 40, 0.2);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+    }
+
+    .post-body p {
+      margin: 0 0 22px 0;
+      font-size: 1.02rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .post-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 720px) {
+      .post-container {
+        padding: 64px 20px 100px;
+      }
+
+      .post-body {
+        padding: 22px 20px;
+      }
+
+      h1 {
+        font-size: 2.1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="glCanvas"></canvas>
+
+  <div class="post-container">
+    <a href="../index.html" class="back-link">Back</a>
+
+    <h1>Map of a Mind</h1>
+    <p class="post-meta">Armita</p>
+
+    <div class="post-body">
+      <!-- Add your paragraphs, images, quotes, or sections inside this .post-body div. -->
+    </div>
+  </div>
+
+  <script type="module">
+    import { Demo } from "../scripts/demo.js";
+    const canvas = document.querySelector("#glCanvas");
+    window.demo = new Demo(canvas, false);
+  </script>
+</body>
+</html>
