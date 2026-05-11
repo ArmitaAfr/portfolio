@@ -564,12 +564,12 @@
       background-position: center;
       z-index: -1;
       pointer-events: none;
-      opacity: 0.72;
+      opacity: var(--card-bg-opacity, 0.72);
       transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     #section-projects .project-card:hover > .card-bg-image {
-      opacity: 0.92;
+      opacity: calc(var(--card-bg-opacity, 0.72) + 0.18);
     }
 
     #section-projects .project-card.tinynav-card {
@@ -1399,7 +1399,7 @@
             </div>
           </div>
 
-          <div class="project-card glass-card-atmos" data-tags="Applied NLP,Quantified Self" style="position:static;width:auto;top:auto;left:auto;--card-bg-image:url('./images/projects/MOAM.gif');">
+          <div class="project-card glass-card-atmos" data-tags="Applied NLP,Quantified Self" style="position:static;width:auto;top:auto;left:auto;--card-bg-image:url('./images/projects/MOAM.gif');--card-bg-opacity:0.5;">
             <div class="card-bg-image"></div>
             <div class="card-top">
               <h3 class="project-title">Map of a Mind</h3>
