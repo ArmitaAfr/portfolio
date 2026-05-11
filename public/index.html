@@ -597,7 +597,10 @@
       z-index: -1;
       pointer-events: none;
       opacity: var(--card-bg-opacity, 0.72);
-      transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: brightness(var(--card-bg-brightness, 1));
+      transition:
+        opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.38s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     #section-projects .project-card:hover > .card-bg-image {
@@ -1416,7 +1419,7 @@
             </div>
           </div>
 
-          <div class="project-card glass-card-prism" data-tags="AI,Ethics" style="position:static;width:auto;top:auto;left:auto;--card-bg-image:url('./images/projects/CUCAI2025.PNG');--card-bg-opacity:0.35;">
+          <div class="project-card glass-card-prism" data-tags="AI,Ethics" style="position:static;width:auto;top:auto;left:auto;--card-bg-image:url('./images/projects/CUCAI2025.PNG');--card-bg-opacity:0.35;--card-bg-brightness:0.58;">
             <div class="card-bg-image"></div>
             <div class="card-top">
               <h3 class="project-title">Music Generator AI & Creator Copyright</h3>

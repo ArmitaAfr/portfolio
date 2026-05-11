@@ -191,6 +191,30 @@
       padding-top: 14px;
     }
 
+    .book-body p:empty {
+      display: none;
+    }
+
+    .book-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .book-link {
+      color: rgba(180, 240, 255, 0.95);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.25s ease;
+    }
+
+    .book-link:hover {
+      color: #ffffff;
+    }
+
     @media (max-width: 900px) {
       .top-nav {
         top: 18px;
@@ -242,6 +266,9 @@
           </div>
           <div class="book-body">
             <p><!-- your note here --></p>
+            <div class="book-links">
+              <a href="https://www.goodreads.com/book/show/25670869-why-greatness-cannot-be-planned" class="book-link" target="_blank" rel="noopener noreferrer">Goodreads</a>
+            </div>
           </div>
         </div>
 
@@ -260,6 +287,9 @@
           </div>
           <div class="book-body">
             <p><!-- your note here --></p>
+            <div class="book-links">
+              <a href="https://www.goodreads.com/book/show/3828902-thinking-in-systems" class="book-link" target="_blank" rel="noopener noreferrer">Goodreads</a>
+            </div>
           </div>
         </div>
 
@@ -278,6 +308,9 @@
           </div>
           <div class="book-body">
             <p><!-- your note here --></p>
+            <div class="book-links">
+              <a href="https://www.goodreads.com/book/show/15861579-triumphs-of-experience" class="book-link" target="_blank" rel="noopener noreferrer">Goodreads</a>
+            </div>
           </div>
         </div>
 
