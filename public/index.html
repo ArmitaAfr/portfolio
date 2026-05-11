@@ -1419,6 +1419,26 @@
             </div>
           </div>
 
+          <div class="project-card glass-card-atmos" data-tags="Applied NLP,Quantified Self" style="position:static;width:auto;top:auto;left:auto;--card-bg-image:url('./images/projects/MOAM.gif');--card-bg-opacity:0.5;">
+            <div class="card-bg-image"></div>
+            <div class="card-top">
+              <h3 class="project-title">Map of a Mind</h3>
+              <p class="project-description">
+                Ever since I learned about the idea of embeddings and clustering, I wanted to test it out on my journaling data, essentially distant reading applied to personal text.
+              </p>
+            </div>
+            <div class="card-bottom">
+              <div class="card-links">
+                <a href="https://github.com/ArmitaAfr" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="#section-about" class="project-link" data-page="about">Blog</a>
+              </div>
+              <div class="card-tags">
+                <button class="genre-tag" type="button" data-filter="Applied NLP">Applied NLP</button>
+                <button class="genre-tag" type="button" data-filter="Quantified Self">Quantified Self</button>
+              </div>
+            </div>
+          </div>
+
           <div class="project-card glass-card-prism" data-tags="AI,Ethics" style="position:static;width:auto;top:auto;left:auto;--card-bg-image:url('./images/projects/CUCAI2025.PNG');--card-bg-opacity:0.35;--card-bg-brightness:0.58;">
             <div class="card-bg-image"></div>
             <div class="card-top">
@@ -1434,22 +1454,6 @@
               <div class="card-tags">
                 <button class="genre-tag" type="button" data-filter="AI">AI</button>
                 <button class="genre-tag" type="button" data-filter="Ethics">Ethics</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-card glass-card-atmos" data-tags="Applied NLP,Quantified Self" style="position:static;width:auto;top:auto;left:auto;--card-bg-image:url('./images/projects/MOAM.gif');--card-bg-opacity:0.5;">
-            <div class="card-bg-image"></div>
-            <div class="card-top">
-              <h3 class="project-title">Map of a Mind</h3>
-              <p class="project-description">
-                Ever since I learned about the idea of embeddings and clustering, I wanted to test it out on my journaling data, essentially distant reading applied to personal text.
-              </p>
-            </div>
-            <div class="card-bottom">
-              <div class="card-tags">
-                <button class="genre-tag" type="button" data-filter="Applied NLP">Applied NLP</button>
-                <button class="genre-tag" type="button" data-filter="Quantified Self">Quantified Self</button>
               </div>
             </div>
           </div>
@@ -1533,12 +1537,15 @@
       });
     });
 
-    document.querySelectorAll('.nav-link[data-page]').forEach(link => {
+    document.querySelectorAll('[data-page]').forEach(link => {
       link.addEventListener('click', async e => {
         e.preventDefault();
         const page = link.dataset.page;
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
+        const activeNavLink = document.querySelector(`.nav-link[data-page="${page}"]`);
+        if (activeNavLink) {
+          activeNavLink.classList.add('active');
+        }
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         const section = document.getElementById('section-' + page);
         section.classList.add('active');
