@@ -569,7 +569,7 @@
       border-radius: inherit;
       background-image: var(--card-bg-image, none);
       background-size: cover;
-      background-position: center;
+      background-position: var(--card-bg-position, center);
       z-index: -1;
       pointer-events: none;
       opacity: var(--card-bg-opacity, 0.72);
@@ -1370,7 +1370,7 @@
           <button class="genre-tag" type="button" data-filter="Quantified Self">Quantified Self</button>
         </div>
         <div class="item-list">
-          <div class="project-card tinynav-card glass-card-frost" data-tags="AI,Robotics" style="position:static;width:auto;top:auto;left:auto;">
+          <div class="project-card tinynav-card glass-card-frost" data-tags="AI,Robotics" style="position:static;width:auto;top:auto;left:auto;--card-bg-image:url('./images/projects/TinyNav.gif');--card-bg-opacity:0.5;--card-bg-position:left center;">
             <div class="card-bg-image"></div>
             <div class="card-top">
               <h3 class="project-title">TinyNav</h3>
