@@ -512,6 +512,45 @@
       gap: 14px;
     }
 
+    #section-about .notes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    #section-about .note-entry {
+      padding: 0 0 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    #section-about .note-entry:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    #section-about .note-link {
+      display: inline-block;
+      color: rgba(255, 255, 255, 0.94);
+      text-decoration: none;
+      font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.35;
+      transition: color 0.22s ease;
+    }
+
+    #section-about .note-link:hover {
+      color: rgba(180, 240, 255, 0.96);
+    }
+
+    #section-about .note-description {
+      margin: 7px 0 0;
+      max-width: 42rem;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.52);
+    }
+
     #section-projects .page-content {
       max-width: 1220px;
     }
@@ -1402,6 +1441,7 @@
           <button class="genre-tag" type="button" data-filter="Ethics">Ethics</button>
           <button class="genre-tag" type="button" data-filter="Applied NLP">Applied NLP</button>
           <button class="genre-tag" type="button" data-filter="Quantified Self">Quantified Self</button>
+          <button class="genre-tag" type="button" data-filter="Mathematics">Mathematics</button>
         </div>
         <div class="item-list">
           <div class="project-card tinynav-card glass-card-frost" data-tags="AI,Robotics" style="position:static;width:auto;top:auto;left:auto;--card-bg-image:url('./images/projects/TinyNav.gif');--card-bg-opacity:0.35;--card-bg-position:left center;">
@@ -1446,6 +1486,24 @@
             </div>
           </div>
 
+          <div class="project-card glass-card-amber" data-tags="Mathematics" style="position:static;width:auto;top:auto;left:auto;">
+            <div class="card-top">
+              <h3 class="project-title">MATH281 Helper</h3>
+              <p class="project-description">
+                Interactive reference sheet for MATH/MTHE 281 - Real Analysis at Queen's University. All definitions, theorems, propositions, lemmas, and corollaries with mini diagrams.
+              </p>
+            </div>
+            <div class="card-bottom">
+              <div class="card-links">
+                <a href="https://armitaafr.github.io/MATH281-/" class="project-link" target="_blank" rel="noopener noreferrer">Website</a>
+                <a href="https://github.com/ArmitaAfr/MATH281-" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+              <div class="card-tags">
+                <button class="genre-tag" type="button" data-filter="Mathematics">Mathematics</button>
+              </div>
+            </div>
+          </div>
+
           <div class="project-card glass-card-prism" data-tags="AI,Ethics" style="position:static;width:auto;top:auto;left:auto;">
             <div class="card-top">
               <h3 class="project-title">Music Generator AI & Creator Copyright</h3>
@@ -1465,6 +1523,7 @@
           </div>
 
         </div>
+
       </div>
     </div>
 
@@ -1475,26 +1534,15 @@
     <div class="section" id="section-about">
       <div class="page-content">
         <h2>Notes</h2>
-        <div class="item-list">
-          <div class="project-card" style="position:static;width:auto;top:auto;left:auto;">
-            <div class="card-top">
-              <h3 class="project-title">What's Behind the Glass?</h3>
-              <p class="project-description">
-                On the neural cellular automata living behind this portfolio.
-              </p>
-            </div>
-            <div class="card-bottom">
-              <a href="./posts/whats-behind-the-glass.html" class="project-link">Read</a>
-            </div>
-          </div>
-          <div class="project-card" style="position:static;width:auto;top:auto;left:auto;">
-            <div class="card-top">
-              <h3 class="project-title">Map of A Mind: Pattern Recognition Through Journals</h3>
-            </div>
-            <div class="card-bottom">
-              <a href="./posts/map-of-a-mind.html" class="project-link">Read</a>
-            </div>
-          </div>
+        <div class="notes-list">
+          <article class="note-entry">
+            <a href="./posts/whats-behind-the-glass.html" class="note-link">What's Behind the Glass?</a>
+            <p class="note-description">On the neural cellular automata living behind this portfolio.</p>
+          </article>
+          <article class="note-entry">
+            <a href="./posts/map-of-a-mind.html" class="note-link">Map of A Mind: Pattern Recognition Through Journals</a>
+            <p class="note-description">On embeddings, clustering, and the patterns hidden across years of journaling.</p>
+          </article>
         </div>
       </div>
     </div>
