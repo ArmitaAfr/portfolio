@@ -149,23 +149,12 @@
   function sendEvent(payload) {
     const body = JSON.stringify(payload);
 
-    if (navigator.sendBeacon) {
-      const accepted = navigator.sendBeacon(
-        endpoint,
-        new Blob([body], { type: "application/json" })
-      );
-
-      if (accepted) {
-        return;
-      }
-    }
-
     fetch(endpoint, {
       method: "POST",
       mode: "cors",
       keepalive: true,
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "text/plain;charset=UTF-8"
       },
       body
     }).catch(() => {});
