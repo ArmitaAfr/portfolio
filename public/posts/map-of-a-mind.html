@@ -34,6 +34,32 @@
       transform: scale(1.04);
     }
 
+    .site-logo-link {
+      position: fixed;
+      top: 28px;
+      left: 28px;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      user-select: none;
+      touch-action: manipulation;
+      filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.28));
+    }
+
+    .site-logo-link img {
+      display: block;
+      width: auto;
+      height: 62px;
+      max-width: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+
     .post-container {
       position: relative;
       z-index: 10;
@@ -178,6 +204,15 @@
     }
 
     @media (max-width: 720px) {
+      .site-logo-link {
+        top: 18px;
+        left: 18px;
+      }
+
+      .site-logo-link img {
+        height: 48px;
+      }
+
       .post-container {
         padding: 64px 20px 100px;
       }
@@ -195,6 +230,9 @@
 
 <body>
   <canvas id="glCanvas"></canvas>
+  <a href="../index.html" class="site-logo-link" aria-label="Go to home page">
+    <img src="../images/logo_transparent_noticeable_thickened_4x.png" alt="Armita logo">
+  </a>
 
   <div class="post-container">
     <a href="../index.html" class="back-link">Back</a>

@@ -54,7 +54,9 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      max-width: calc(100vw - 24px);
       padding: 10px 14px;
+      box-sizing: border-box;
       border-radius: 999px;
 
       background: rgba(10, 20, 40, 0.18);
@@ -68,6 +70,33 @@
 
       z-index: 20;
       pointer-events: auto;
+    }
+
+    .site-logo-link {
+      position: fixed;
+      top: 28px;
+      left: 28px;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      pointer-events: auto;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      user-select: none;
+      touch-action: manipulation;
+      filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.28));
+    }
+
+    .site-logo-link img {
+      display: block;
+      width: auto;
+      height: 62px;
+      max-width: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      -webkit-user-drag: none;
     }
 
     .nav-link {
@@ -964,6 +993,15 @@
         padding: 8px 8px;
       }
 
+      .site-logo-link {
+        top: 18px;
+        left: 18px;
+      }
+
+      .site-logo-link img {
+        height: 48px;
+      }
+
       .nav-link {
         font-size: 0.88rem;
         padding: 8px 10px;
@@ -1293,6 +1331,9 @@
   <canvas id="glCanvas"></canvas>
 
   <div class="page-overlay">
+    <a href="./index.html" class="site-logo-link" aria-label="Go to home page">
+      <img src="./images/logo_transparent_noticeable_thickened_4x.png" alt="Armita logo">
+    </a>
     <nav class="top-nav">
       <a href="#" class="nav-link active" data-page="home">Home</a>
       <a href="#" class="nav-link" data-page="projects">Projects</a>
