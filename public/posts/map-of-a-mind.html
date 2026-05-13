@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-  <title>Map of a Mind - Armita</title>
+  <title>Map of a Mind - Pattern Recognition Through Journals - Armita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <script src="../vendor/twgl-full.min.js"></script>
   <script src="../vendor/dat.gui.min.js"></script>
@@ -15,7 +18,7 @@
       margin: 0;
       padding: 0;
       min-height: 100%;
-      font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
+      font-family: "Space Grotesk", Arial, Helvetica, sans-serif;
       color: #fff;
       background: #050b16;
     }
@@ -42,6 +45,7 @@
     .back-link {
       display: inline-block;
       margin-bottom: 48px;
+      font-family: "Space Grotesk", Arial, Helvetica, sans-serif;
       color: rgba(180, 240, 255, 0.85);
       text-decoration: none;
       font-size: 0.92rem;
@@ -62,6 +66,8 @@
 
     .post-meta {
       margin: 0 0 40px 0;
+      font-family: "Space Grotesk", Arial, Helvetica, sans-serif;
+      letter-spacing: 0.02em;
       font-size: 0.92rem;
       color: rgba(255, 255, 255, 0.48);
     }
@@ -78,13 +84,97 @@
 
     .post-body p {
       margin: 0 0 22px 0;
-      font-size: 1.02rem;
-      line-height: 1.8;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 1.12rem;
+      line-height: 1.88;
+      letter-spacing: 0.003em;
       color: rgba(255, 255, 255, 0.82);
     }
 
     .post-body p:last-child {
       margin-bottom: 0;
+    }
+
+    .post-body h2 {
+      margin: 56px 0 18px 0;
+      font-family: "Space Grotesk", Arial, Helvetica, sans-serif;
+      font-size: 1.42rem;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #ffffff;
+    }
+
+    .post-body strong {
+      color: #ffffff;
+    }
+
+    .post-body blockquote {
+      margin: 0 0 28px 0;
+      padding: 18px 20px;
+      border-left: 3px solid rgba(180, 240, 255, 0.7);
+      border-radius: 0 16px 16px 0;
+      background: rgba(255, 255, 255, 0.04);
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .post-body blockquote p {
+      margin: 0;
+      font-size: 1.08rem;
+      line-height: 1.82;
+    }
+
+    .post-body figure {
+      margin: 34px 0;
+    }
+
+    .post-body img {
+      display: block;
+      width: 100%;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
+    }
+
+    .post-body figcaption {
+      margin-top: 10px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.52);
+    }
+
+    .post-body pre {
+      overflow-x: auto;
+      margin: 0 0 28px 0;
+      padding: 18px 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(4, 9, 19, 0.78);
+      color: rgba(224, 244, 255, 0.92);
+    }
+
+    .post-body code {
+      font-family: "IBM Plex Mono", Consolas, Monaco, monospace;
+      font-size: 0.94rem;
+    }
+
+    .post-body p code,
+    .post-body li code {
+      padding: 0.08rem 0.36rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .post-body ol {
+      margin: 0 0 28px 0;
+      padding-left: 22px;
+      font-family: "Source Serif 4", Georgia, serif;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .post-body li {
+      margin-bottom: 12px;
+      line-height: 1.8;
     }
 
     @media (max-width: 720px) {
@@ -109,11 +199,157 @@
   <div class="post-container">
     <a href="../index.html" class="back-link">Back</a>
 
-    <h1>Map of a Mind</h1>
+    <h1>Map of a Mind - Pattern Recognition Through Journals</h1>
     <p class="post-meta">Armita</p>
 
     <div class="post-body">
-      <!-- Add your paragraphs, images, quotes, or sections inside this .post-body div. -->
+      <p>Sometimes when I feel a bit blue, or lonely, or curious, I go back to my journal entries from a year ago to see how Armita was doing on the same day last year. It kind of reinforces this quote in my mind:</p>
+
+      <blockquote>
+        <p>"Nothing is ever as good or as bad as it seems at the moment."</p>
+      </blockquote>
+
+      <p>Now one might get bored after a while of seeing only the messages from the date last year, and instead want to search "when did I in the past few years feel the same as now?". And that's where math comes to help us. At the end of this blog, we will come up with a way to plot our thoughts and journals in a 3D semantic space, and if you wish, we can make a clustering of the themes. Sounds cool, huh?</p>
+
+      <p>I'd like to mention that for the sake of safety reasons I'm only sharing some of the information about my data, but I've shared the code on GitHub and will continue to contribute to it.</p>
+
+      <h2>Cleaning and Parsing the Data</h2>
+
+      <p>First things first, we have to clean our data. The data I have is about six <code>.html</code> files containing a few types of media, but I only wish to work on the texts, as they describe how I feel the most. I had to clean the data from service messages, photos, videos, audio messages, and a few other types of media that were unwanted.</p>
+
+      <p>At the end, I came up with a clean <code>.csv</code> file that has the structure I want: message number, timestamp, datetime, type, and text. Now that we have parsed our data, we let the exploration begin.</p>
+
+      <h2>Exploration</h2>
+
+      <p>The data I have collected is a set of 4,973 messages in the timeline of four years.</p>
+
+      <figure>
+        <img src="../images/blogs/Pasted image 20260511230105.png" alt="Bar chart showing the number of journal texts per month across four years.">
+        <figcaption>This is the number of texts per month, with the least of them being 0, and the most of them being somewhere around 450.</figcaption>
+      </figure>
+
+      <p>The image below shows the distribution of messages by hour of day. As expected, I usually write before going to bed, or I tend to write when I'm awake and no one else is. There's an upward shift midday too, which is interesting.</p>
+
+      <figure>
+        <img src="../images/blogs/Pasted image 20260511230409.png" alt="Chart showing the distribution of journal messages by hour of day.">
+      </figure>
+
+      <p>Another thing I track in my journals is my gym sessions. Ever since I started university for my bachelor's degree, I picked up the habit of going to the gym, and I'm happy I've been pretty consistent with it. This consistency will give us a really interesting observation later in the embeddings part. Let's see a few exploration trivia for now:</p>
+
+      <p>Gym sessions were tracked by a code I made up, which is G-session number, like G-1, G-2, etc.</p>
+
+      <figure>
+        <img src="../images/blogs/Pasted image 20260511231125.png" alt="Chart showing the number of tracked gym sessions per month.">
+        <figcaption>This is the number of gym sessions per month, with the maximum of them being 17 and the minimum being 4. In my defense, that was two full months of hiking :)</figcaption>
+      </figure>
+
+      <p>I realized I wanted to make it into a contribution graph, like the one on GitHub. This is what I came up with:</p>
+
+      <figure>
+        <img src="../images/blogs/Pasted image 20260511232043.png" alt="Contribution-style heatmap visualization of gym sessions over time.">
+      </figure>
+
+      <p>I've also made the word cloud of all the texts, a beautiful visualization of most common English words, but I will not share it in this blog. You can find the block of code on GitHub with the Markdown "🌟 WORDCLOUD". The word cloud is with the stop words removed so that your final image is not filled with articles.</p>
+
+      <p>One obstacle I ran into was my texts being bilingual. But this was even more interesting to me, because perhaps the data could tell me what language I think in:</p>
+
+      <figure>
+        <img src="../images/blogs/Pasted image 20260511233138.png" alt="Chart showing the monthly English share of tokens in bilingual journal entries.">
+      </figure>
+
+      <p>Interestingly enough, there is a boom and bust activity with the English share of tokens, basically a word, but a little bit different, per month. The first two 100 percent shares are probably because there were very few messages back then, and they were all in English. But the share of tokens later on is more meaningful, with most months again being 100 percent. I've been asked a few times what language I think in, and I have to answer both, I guess the data says so too. :)</p>
+
+      <p>And at the very last, I have made a block of code that displays a random message from the set of all messages, perhaps in a format of a small letter or note to the future self. This is an example of a very short text I wrote: The first time I taught someone in my high school to be paid a Mocha.</p>
+
+      <figure>
+        <img src="../images/blogs/Pasted image 20260511235309.png" alt="Rendered example of a random journal message displayed like a short letter to the future self.">
+      </figure>
+
+      <p>We've explored the data enough. This was a very rewarding part of this project. With simple blocks of code you could find out so much about the data. Our next step is my favorite, which is <strong>embedding</strong>.</p>
+
+      <h2>Embedding</h2>
+
+      <p>This phase is the project's core question: finding messages similar to a target message. Let's pause here before we touch code.</p>
+
+      <p>An embedding is a way of turning a piece of text into a list of numbers, which we'll later gather into a vector. These are not random numbers: the model that produces them was trained so that texts with similar meaning end up with similar vectors, even if they share no words. A message in two or more different languages with the same sentiment will also be nearby, because we're using a multilingual model.</p>
+
+      <p>The geometry of this space becomes the meaning, and finding messages similar to any given one becomes a question of finding nearby vectors, which is just math.</p>
+
+      <p>The model I'm using in this project is the <code>paraphrase-multilingual-MiniLM-L12-v2</code> from <code>sentence-transformers</code>. It supports 50+ languages including Persian and English, which were the languages I used in my texts. The model returns 384-dimensional vectors, and was small enough to run on CPU.</p>
+
+      <p>After setting up the environment and running the model on the text messages, we create two functions: <code>find_similar_to_message</code> and <code>search</code>. The first finds messages similar to an existing message; the second lets you search by typing any text.</p>
+
+      <p>Let's test it out. I'll do a search on the word <code>biking</code>:</p>
+
+      <pre><code class="language-python">query = "biking"
+results = search(query, top_n=5)
+display_results(
+    query_text=query,
+    results_df=results,
+    title="Top 5 results",
+)</code></pre>
+
+      <figure>
+        <img src="../images/blogs/Pasted image 20260512001804.png" alt="Search results showing semantically similar journal messages for the query biking.">
+      </figure>
+
+      <p>The first message is "I went biking" in Farsi, and the third one is a really old Persian website about biking by Jadi that I found on Twitter. The word "Bikezen" makes me think about how words are turned into tokens in semantic search.</p>
+
+      <p>Trying <code>find_similar_to_message</code> on a random entry, I came across the gym sessions, and noticed how numbers close to each other are grouped as having similar meaning. Just an interesting observation:</p>
+
+      <figure>
+        <img src="../images/blogs/Pasted image 20260512002258.png" alt="Similarity results showing nearby journal messages around repeated gym-session entries.">
+      </figure>
+
+      <p>Now that we've done the embedding, I'd like to project the vectors down to 3D and scatter them. I'm using UMAP, which reduces my 384-D embeddings to 3D while preserving meaningful structure. I've made it interactive with Plotly so I can rotate, zoom, and hover. You can find the code for this in the last cell of the <code>embeddings.ipynb</code> file.</p>
+
+      <figure>
+        <img src="../images/blogs/Pasted image 20260512003827.png" alt="3D scatter plot of embedded journal messages projected with UMAP and colored by date.">
+      </figure>
+
+      <p>Here comes the pretty map of a mind. For now, the colors show the date each message was posted. Each message shows up as a label when you hover over its dot. Pretty amazing how the points that end up next to each other really are similar in meaning. You might be wondering: what is that circular cluster in the top right corner of the map? Let's zoom and see.</p>
+
+      <figure>
+        <img src="../images/blogs/Pasted image 20260512004209.png" alt="Zoomed-in view of a circular cluster in the UMAP map, corresponding to gym-session entries.">
+      </figure>
+
+      <p>Each of these dots is one gym session. Isn't that fascinating? The messages just outside the circle are there because they include a little note about the gym session on the line after. I'd really like to know if it would make a perfect circle if those notes weren't there.</p>
+
+      <figure>
+        <img src="../images/blogs/Pasted image 20260512004454.png" alt="A line-shaped cluster in the UMAP map corresponding to several newer repeated habits.">
+      </figure>
+
+      <p>The dots forming a line in the upper right corner are three other habits I started, but they aren't as frequent as the gym sessions, so that's why they show up like that. I'd like to see what shape they'd form if I keep them up.</p>
+
+      <p>We're done with the embeddings. Let's go to our next stop, clustering.</p>
+
+      <h2>Clustering</h2>
+
+      <p>In this phase, we want to turn the visual blobs into named topics. We do this in two steps:</p>
+
+      <ol>
+        <li>Clustering: assign each message a cluster ID, see how many natural groups exist.</li>
+        <li>Naming + recoloring: pull representative words from each cluster, then repaint the 3D plot by cluster.</li>
+      </ol>
+
+      <p>For step 1, I'm using K-means clustering with <code>k=15</code>. K-means is a classic algorithm: you tell it how many groups you want, and it works out the best way to split your data into that many groups by minimizing the distance between each message and its cluster's center. Every message ends up with a label from 0 to 14, no noise category, every message belongs somewhere. Why 15? I tried a few values and 15 felt right.</p>
+
+      <p>For the next step, I used c-TF-IDF (class-based TF-IDF). Regular TF-IDF would hand me the most common words in each cluster, but those tend to be everyday vocabulary that shows up everywhere. c-TF-IDF asks a more useful question: <em>what words are distinctive to this cluster compared to all the others?</em> That's what gives the clusters their personality.</p>
+
+      <p>When I repaint the 3D plot by cluster instead of by date, the structure of my journal becomes legible in a new way. I can see the regions of my own writing.</p>
+
+      <figure>
+        <img src="../images/blogs/Recording 2026-05-12 215919.gif" alt="Animated screen recording of the cluster-colored 3D map of journal embeddings.">
+        <figcaption>Cluster-colored 3D map of the journal space.</figcaption>
+      </figure>
+
+      <h2>Looking Back</h2>
+
+      <p>What this project really gave me isn't a fancy NLP pipeline; it's a way to read myself from a distance. I can now ask the journal a question and have it pull back everything I've ever written that sounds like the same feeling, even if it's in a different language.</p>
+
+      <p>There's a lot more I want to do with this. I'd like to see the line-shaped clusters from the newer habits become rings. I want to build a small interface so I'm not opening a notebook every time I want to search. And maybe most of all, I want to come back to this in a year and see how the shape of the map has changed.</p>
+
+      <p>But for now, this is what I have: four years of thoughts turned into geometry. The quote I started with feels even more true after building this. And most importantly, when you can see four years of yourself as a single object, it's easier to be kinder to the version of you writing today.</p>
     </div>
   </div>
 
