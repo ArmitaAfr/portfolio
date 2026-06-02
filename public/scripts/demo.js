@@ -31,7 +31,7 @@ export class Demo {
         //this.sonic = new Sonic(gl, ca);
         const canvas = this.canvas;
 
-        this.modelId = 134; // choose your favorite pattern
+        this.modelId = 148; // choose your favorite pattern
         this.ca.paint(0, 0, -1, this.modelId);
 
         this.guesture = null;
