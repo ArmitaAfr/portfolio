@@ -675,74 +675,52 @@
 
     #section-projects .project-card {
       border-radius: 16px;
+      aspect-ratio: 7 / 6;
       min-height: 0;
       display: flex;
       flex-direction: column;
-      padding: 22px;
+      padding: 18px;
       isolation: isolate;
     }
 
     #section-projects .card-top {
-      margin-bottom: 12px;
-      text-align: left;
+      margin-bottom: 14px;
+      text-align: center;
     }
 
     #section-projects .project-description {
-      position: static;
-      max-height: none;
-      overflow: visible;
-      opacity: 1;
-      transform: none;
-      transition: none;
-      font-size: 0.875rem;
-      line-height: 1.62;
-      color: rgba(246, 242, 235, 0.76);
-      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
       text-align: left;
-      margin: 6px 0 0;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(10px);
+      transition:
+        max-height 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #section-projects .project-card:hover .project-description {
+      max-height: 200px;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     #section-projects .card-bottom {
       margin-top: auto;
-      padding-top: 16px;
       flex-direction: column;
       align-items: flex-start;
-      gap: 10px;
+      gap: 8px;
     }
 
     #section-projects .card-links {
       display: flex;
-      gap: 7px;
+      gap: 8px;
       flex-wrap: wrap;
-    }
-
-    #section-projects .project-link {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 15px;
-      border-radius: 999px;
-      border: 1px solid rgba(236, 232, 225, 0.22);
-      background: rgba(236, 232, 225, 0.07);
-      color: rgba(236, 232, 225, 0.9);
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      white-space: nowrap;
-      transition:
-        color 0.22s ease,
-        background 0.22s ease,
-        border-color 0.22s ease,
-        box-shadow 0.22s ease,
-        transform 0.18s ease;
-    }
-
-    #section-projects .project-link:hover {
-      color: #fff;
-      background: rgba(125, 176, 184, 0.18);
-      border-color: rgba(125, 176, 184, 0.5);
-      box-shadow: 0 0 14px rgba(125, 176, 184, 0.2);
-      transform: translateY(-1px);
     }
 
     #section-projects .project-card::before {
@@ -1514,6 +1492,7 @@
             </div>
             <div class="card-bottom">
               <div class="card-links">
+                <a href="#" class="project-link">View Project</a>
                 <a href="https://github.com/regularpooria/TinyNav" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <a href="https://arxiv.org/abs/2603.11071" class="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
               </div>
