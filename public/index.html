@@ -712,15 +712,52 @@
 
     #section-projects .card-bottom {
       margin-top: auto;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     #section-projects .card-links {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    #section-projects .project-link {
+      font-family: "Space Grotesk", Inter, Arial, Helvetica, sans-serif;
+      font-size: 0.78rem;
+      padding: 3px 11px;
+      border-radius: 20px;
+      border: 1px solid rgba(193, 164, 255, 0.38);
+      color: rgb(193, 164, 255);
+      background: rgba(193, 164, 255, 0.1);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    #section-projects .project-link:hover {
+      color: #ffffff;
+      background: rgba(193, 164, 255, 0.24);
+      border-color: rgba(214, 196, 255, 0.68);
+      box-shadow: 0 0 16px rgba(138, 84, 255, 0.22);
+    }
+
+    #section-projects .card-tags {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+      flex-shrink: 0;
+      margin-left: 0;
     }
 
     #section-projects .project-card::before {
@@ -1471,6 +1508,7 @@
     <div class="section" id="section-projects">
       <div class="page-content">
         <h2>Projects</h2>
+        <!-- filter-strip hidden for now
         <div class="project-filter-strip" aria-label="Project genres">
           <button class="genre-tag active" type="button" data-filter="all">All</button>
           <button class="genre-tag" type="button" data-filter="AI">AI</button>
@@ -1480,6 +1518,7 @@
           <button class="genre-tag" type="button" data-filter="Quantified Self">Quantified Self</button>
           <button class="genre-tag" type="button" data-filter="Mathematics">Mathematics</button>
         </div>
+        -->
         <div class="item-list">
           <div class="project-card tinynav-card glass-card-frost" data-tags="AI,Robotics" style="position:static;width:auto;top:auto;left:auto;--card-bg-image:url('./images/projects/TinyNav.gif');--card-bg-opacity:0.35;--card-bg-position:left center;">
             <div class="card-bg-image"></div>
@@ -1492,14 +1531,15 @@
             </div>
             <div class="card-bottom">
               <div class="card-links">
-                <a href="#" class="project-link">View Project</a>
                 <a href="https://github.com/regularpooria/TinyNav" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <a href="https://arxiv.org/abs/2603.11071" class="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
               </div>
+              <!-- card-tags hidden for now
               <div class="card-tags">
                 <button class="genre-tag" type="button" data-filter="AI">AI</button>
                 <button class="genre-tag" type="button" data-filter="Robotics">Robotics</button>
               </div>
+              -->
             </div>
           </div>
 
@@ -1516,10 +1556,12 @@
                 <a href="https://github.com/ArmitaAfr/MapOfAMind.git" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <a href="./posts/map-of-a-mind.html" class="project-link">Blog</a>
               </div>
+              <!-- card-tags hidden for now
               <div class="card-tags">
                 <button class="genre-tag" type="button" data-filter="Applied NLP">Applied NLP</button>
                 <button class="genre-tag" type="button" data-filter="Quantified Self">Quantified Self</button>
               </div>
+              -->
             </div>
           </div>
 
@@ -1535,9 +1577,11 @@
                 <a href="https://armitaafr.github.io/MATH281-/" class="project-link" target="_blank" rel="noopener noreferrer">Website</a>
                 <a href="https://github.com/ArmitaAfr/MATH281-" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
               </div>
+              <!-- card-tags hidden for now
               <div class="card-tags">
                 <button class="genre-tag" type="button" data-filter="Mathematics">Mathematics</button>
               </div>
+              -->
             </div>
           </div>
 
@@ -1552,10 +1596,12 @@
               <div class="card-links">
                 <a href="https://drive.google.com/file/d/1Ov-0nKdaizbdKaXh8qTzVd0fzU6_8gG1/view" class="project-link" target="_blank" rel="noopener noreferrer">Paper</a>
               </div>
+              <!-- card-tags hidden for now
               <div class="card-tags">
                 <button class="genre-tag" type="button" data-filter="AI">AI</button>
                 <button class="genre-tag" type="button" data-filter="Ethics">Ethics</button>
               </div>
+              -->
             </div>
           </div>
 
