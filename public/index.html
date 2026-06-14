@@ -1075,6 +1075,46 @@
       }
     }
 
+    @media (max-width: 900px) {
+      #section-projects {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      #section-projects .page-content {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        width: 100%;
+        max-width: none;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 90px 6% calc(42px + env(safe-area-inset-bottom));
+      }
+
+      #section-projects .item-list {
+        grid-template-columns: 1fr;
+      }
+
+      #section-projects .project-card {
+        aspect-ratio: auto;
+      }
+
+      #section-projects .project-description {
+        position: static;
+        max-height: none;
+        opacity: 1;
+        transform: none;
+        transition: none;
+        overflow: visible;
+      }
+
+      #section-projects .card-top {
+        position: static;
+      }
+    }
+
     @media (min-width: 901px) {
       #section-projects,
       #section-books,
