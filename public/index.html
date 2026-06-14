@@ -94,12 +94,19 @@
       user-select: none;
       touch-action: manipulation;
       filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.28));
+      opacity: 1;
+      transition: opacity 0.4s ease;
+    }
+
+    .site-logo-link.is-hidden-scroll {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .site-logo-link img {
       display: block;
       width: auto;
-      height: 62px;
+      height: 74px;
       max-width: 100%;
       object-fit: contain;
       pointer-events: none;
@@ -1727,6 +1734,19 @@
       });
     });
 
+    const logoLink = document.querySelector('.site-logo-link');
+    const FADE_THRESHOLD = 40;
+
+    const updateLogoVisibility = (scrollTop) => {
+      logoLink.classList.toggle('is-hidden-scroll', scrollTop > FADE_THRESHOLD);
+    };
+
+    document.querySelectorAll('.section').forEach(section => {
+      section.addEventListener('scroll', () => updateLogoVisibility(section.scrollTop), { passive: true });
+    });
+
+    window.addEventListener('scroll', () => updateLogoVisibility(window.scrollY), { passive: true });
+
     document.querySelectorAll('[data-page]').forEach(link => {
       link.addEventListener('click', async e => {
         e.preventDefault();
@@ -1739,6 +1759,7 @@
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         const section = document.getElementById('section-' + page);
         section.classList.add('active');
+        logoLink.classList.remove('is-hidden-scroll');
         if (useIOSScrollFix) {
           requestAnimationFrame(() => window.scrollTo(0, 0));
         }
