@@ -1087,9 +1087,25 @@
     }
 
     @media (max-width: 900px) {
-      #section-projects {
+      #section-projects,
+      #section-books,
+      #section-about {
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+        pointer-events: auto;
+      }
+
+      #section-books .page-content,
+      #section-about .page-content {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        width: 100%;
+        max-width: none;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 90px 6% calc(42px + env(safe-area-inset-bottom));
       }
 
       #section-projects .page-content {
