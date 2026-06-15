@@ -15,7 +15,8 @@
     ".book-link",
     ".back-link",
     ".genre-tag",
-    ".book-header"
+    ".book-header",
+    ".tw-random-link"
   ].join(",");
 
   function slugify(value) {
@@ -75,6 +76,7 @@
     if (element.classList.contains("back-link")) return "back-link";
     if (element.classList.contains("book-header")) return "book-toggle";
     if (element.classList.contains("genre-tag")) return "filter";
+    if (element.classList.contains("tw-random-link")) return "read-something";
     return "click";
   }
 
@@ -115,6 +117,11 @@
       return "book_toggle_" + slugify(title);
     }
 
+    if (element.classList.contains("tw-random-link")) {
+      const titleEl = element.querySelector("#tw-random-title");
+      return "read_something_" + slugify(titleEl ? titleEl.textContent : "");
+    }
+
     if (element.classList.contains("genre-tag")) {
       const filter = cleanText(element.dataset.filter || element.textContent);
       const title = getNearestText(element, ".project-card", ".project-title");
@@ -136,6 +143,11 @@
   function deriveLabel(element) {
     if (element.classList.contains("book-header")) {
       return getNearestText(element, ".book-item", ".book-title");
+    }
+
+    if (element.classList.contains("tw-random-link")) {
+      const titleEl = element.querySelector("#tw-random-title");
+      return cleanText(titleEl ? titleEl.textContent : "");
     }
 
     return cleanText(
