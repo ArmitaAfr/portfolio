@@ -1087,16 +1087,24 @@
     }
 
     @media (max-width: 900px) {
+      /* Capture touch on sections so canvas doesn't intercept swipe gestures */
       #section-projects,
       #section-books,
       #section-about {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
         pointer-events: auto;
       }
 
-      #section-books .page-content,
-      #section-about .page-content {
+      /* Android: let sections scroll themselves (iOS uses window scroll via html) */
+      html:not(.ios-scroll-fix) #section-projects,
+      html:not(.ios-scroll-fix) #section-books,
+      html:not(.ios-scroll-fix) #section-about {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* Android: page-content must be in-flow so it contributes to scroll height */
+      html:not(.ios-scroll-fix) #section-books .page-content,
+      html:not(.ios-scroll-fix) #section-about .page-content {
         position: relative;
         top: auto;
         left: auto;
@@ -1752,7 +1760,9 @@
       section.addEventListener('scroll', () => updateLogoVisibility(section.scrollTop), { passive: true });
     });
 
-    window.addEventListener('scroll', () => updateLogoVisibility(window.scrollY), { passive: true });
+    const onWindowScroll = () => updateLogoVisibility(window.scrollY || document.documentElement.scrollTop);
+    window.addEventListener('scroll', onWindowScroll, { passive: true });
+    document.documentElement.addEventListener('scroll', onWindowScroll, { passive: true });
 
     document.querySelectorAll('[data-page]').forEach(link => {
       link.addEventListener('click', async e => {
