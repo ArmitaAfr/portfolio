@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <title>How Qluster Started — Armita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="../vendor/twgl-full.min.js"></script>
+  <script src="../vendor/dat.gui.min.js"></script>
+  <script src="../vendor/pako.min.js"></script>
+  <script src="../vendor/UPNG.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: "Space Grotesk", Arial, Helvetica, sans-serif;
+      color: #fff;
+      background: #050b16;
+    }
+
+    #glCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      z-index: 0;
+      filter: blur(6px);
+      transform: scale(1.04);
+    }
+
+    .site-logo-link {
+      position: fixed;
+      top: 28px;
+      left: 28px;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      user-select: none;
+      touch-action: manipulation;
+      filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.28));
+    }
+
+    .site-logo-link img {
+      display: block;
+      width: auto;
+      height: 62px;
+      max-width: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+
+    .post-container {
+      position: relative;
+      z-index: 10;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 80px 32px 120px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 48px;
+      font-family: "Space Grotesk", Arial, Helvetica, sans-serif;
+      color: rgba(180, 240, 255, 0.85);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #ffffff;
+    }
+
+    h1 {
+      margin: 0 0 12px 0;
+      font-family: "Space Grotesk", Arial, Helvetica, sans-serif;
+      font-size: 2.4rem;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .post-meta {
+      margin: 0 0 48px 0;
+      font-family: "Space Grotesk", Arial, Helvetica, sans-serif;
+      letter-spacing: 0.02em;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .post-body p {
+      margin: 0 0 24px 0;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 1.12rem;
+      line-height: 1.88;
+      letter-spacing: 0.003em;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    @media (max-width: 720px) {
+      .site-logo-link {
+        top: 18px;
+        left: 18px;
+      }
+
+      .site-logo-link img {
+        height: 48px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="glCanvas"></canvas>
+  <a href="../index.html" class="site-logo-link" aria-label="Go to home page">
+    <img src="../images/logo_transparent_noticeable_thickened_4x.png" alt="Armita logo">
+  </a>
+
+  <div class="post-container">
+    <a href="../index.html" class="back-link">← Back</a>
+
+    <h1>How Qluster Started</h1>
+    <p class="post-meta">Armita</p>
+
+    <div class="post-body">
+      <!-- your writing goes here -->
+    </div>
+  </div>
+
+  <script src="../scripts/tracking-config.js" defer></script>
+  <script src="../scripts/tracking.js" defer></script>
+
+  <script type="module">
+    import { Demo } from "../scripts/demo.js";
+    const canvas = document.querySelector("#glCanvas");
+    window.demo = new Demo(canvas, false);
+  </script>
+  <script src="../scripts/lightbox.js" defer></script>
+</body>
+</html>
