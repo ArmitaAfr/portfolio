@@ -447,8 +447,8 @@ const PROGRAMS = {
             vec3 bgLight = vec3(0.02, 0.05, 0.12);
 
             // branch colors
-            vec3 cyan   = vec3(0.0,  0.75,  0.6);
-            vec3 purple = vec3(0.45, 0.10, 0.85);
+            vec3 cyan   = PALETTE_CYAN;
+            vec3 purple = PALETTE_PURPLE;
 
             // keep whole page dark blue first
             vec3 rgb = mix(bgDark, bgLight, t * 0.25);
@@ -492,11 +492,29 @@ const PROGRAMS = {
     }`
 }
 
+const COLOR_PALETTES = [
+    { cyan: 'vec3(0.0,  0.75,  0.6)',  purple: 'vec3(0.45, 0.10, 0.85)' }, // green-cyan + purple
+    { cyan: 'vec3(0.0,  0.85,  1.0)',  purple: 'vec3(0.45, 0.10, 0.85)' }, // original cyan + purple
+    { cyan: 'vec3(0.0,  0.5,   1.0)',  purple: 'vec3(0.8,  0.0,  0.5)'  }, // sky blue + hot pink
+    { cyan: 'vec3(0.2,  1.0,   0.2)',  purple: 'vec3(0.6,  0.0,  1.0)'  }, // bright green + violet
+    { cyan: 'vec3(1.0,  0.6,   0.0)',  purple: 'vec3(0.8,  0.0,  0.3)'  }, // amber + crimson
+    { cyan: 'vec3(0.0,  0.9,   0.7)',  purple: 'vec3(0.2,  0.0,  0.8)'  }, // teal + deep blue
+];
+
+function getCurrentPalette() {
+    const slot = Math.floor(Date.now() / (12 * 60 * 60 * 1000));
+    return COLOR_PALETTES[slot % COLOR_PALETTES.length];
+}
+
 function createPrograms(gl, defines) {
     defines = defines || '';
+    const palette = getCurrentPalette();
     const res = {};
     for (const name in PROGRAMS) {
-        const fs_code = defines + PREFIX + PROGRAMS[name];
+        const src = PROGRAMS[name]
+            .replace('PALETTE_CYAN',   palette.cyan)
+            .replace('PALETTE_PURPLE', palette.purple);
+        const fs_code = defines + PREFIX + src;
         const progInfo = twgl.createProgramInfo(gl, [vs_code, fs_code]);
         progInfo.name = name;
         res[name] = progInfo;
