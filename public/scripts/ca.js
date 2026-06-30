@@ -447,7 +447,7 @@ const PROGRAMS = {
             vec3 bgLight = vec3(0.02, 0.05, 0.12);
 
             // branch colors
-            vec3 cyan   = vec3(0.0, 0.85, 1.0);
+            vec3 cyan   = vec3(0.0,  0.75,  0.6);
             vec3 purple = vec3(0.45, 0.10, 0.85);
 
             // keep whole page dark blue first
