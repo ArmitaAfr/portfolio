@@ -496,15 +496,47 @@ const COLOR_PALETTES = [
     { cyan: 'vec3(0.0,  0.75,  0.6)',  purple: 'vec3(0.45, 0.10, 0.85)' }, // green-cyan + purple
     { cyan: 'vec3(0.0,  0.85,  1.0)',  purple: 'vec3(0.45, 0.10, 0.85)' }, // original cyan + purple
     { cyan: 'vec3(0.0,  0.5,   1.0)',  purple: 'vec3(0.8,  0.0,  0.5)'  }, // sky blue + hot pink
-    { cyan: 'vec3(0.2,  1.0,   0.2)',  purple: 'vec3(0.6,  0.0,  1.0)'  }, // bright green + violet
-    { cyan: 'vec3(1.0,  0.6,   0.0)',  purple: 'vec3(0.8,  0.0,  0.3)'  }, // amber + crimson
+    { cyan: 'vec3(0.75, 0.5,   1.0)',  purple: 'vec3(0.4,  0.0,  0.8)'  }, // soft lavender + deep purple
+    { cyan: 'vec3(0.85, 0.65,  1.0)',  purple: 'vec3(0.5,  0.1,  0.7)'  }, // light lilac + violet
+    { cyan: 'vec3(0.6,  0.3,   0.95)', purple: 'vec3(0.3,  0.0,  0.6)'  }, // medium purple + dark purple
     { cyan: 'vec3(0.0,  0.9,   0.7)',  purple: 'vec3(0.2,  0.0,  0.8)'  }, // teal + deep blue
 ];
 
 function getCurrentPalette() {
+    const param = new URLSearchParams(location.search).get('palette');
+    if (param !== null) {
+        const idx = parseInt(param, 10);
+        if (!isNaN(idx) && idx >= 0 && idx < COLOR_PALETTES.length) return COLOR_PALETTES[idx];
+    }
     const slot = Math.floor(Date.now() / (12 * 60 * 60 * 1000));
     return COLOR_PALETTES[slot % COLOR_PALETTES.length];
 }
+
+function initPaletteSwitcher() {
+    if (!new URLSearchParams(location.search).has('dev')) return;
+    const labels = [
+        'green-cyan', 'original cyan', 'sky blue + pink',
+        'soft lavender', 'light lilac', 'medium purple', 'teal + deep blue'
+    ];
+    const panel = document.createElement('div');
+    panel.style.cssText = 'position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;gap:8px;background:rgba(0,0,0,0.6);padding:10px 14px;border-radius:12px;backdrop-filter:blur(6px);';
+    const current = parseInt(new URLSearchParams(location.search).get('palette') ?? '-1', 10);
+    COLOR_PALETTES.forEach((p, i) => {
+        const btn = document.createElement('button');
+        btn.textContent = i + 1;
+        btn.title = labels[i];
+        btn.style.cssText = `width:32px;height:32px;border-radius:50%;border:2px solid ${i === current ? '#fff' : 'transparent'};cursor:pointer;font-size:12px;font-weight:bold;color:#fff;background:rgba(255,255,255,0.15);`;
+        btn.addEventListener('click', () => {
+            const url = new URL(location.href);
+            url.searchParams.set('palette', i);
+            location.href = url.toString();
+        });
+        panel.appendChild(btn);
+    });
+    document.body.appendChild(panel);
+}
+
+document.addEventListener('DOMContentLoaded', initPaletteSwitcher);
 
 function createPrograms(gl, defines) {
     defines = defines || '';
