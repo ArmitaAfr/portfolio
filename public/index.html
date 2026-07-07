@@ -947,6 +947,48 @@
       transform: translateY(-2px) scale(1.03);
     }
 
+    #section-projects .project-card.glass-card-verdant {
+      background:
+        linear-gradient(150deg, rgba(20, 45, 35, 0.4), rgba(22, 27, 35, 0.38));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-color: rgba(123, 211, 164, 0.18);
+      box-shadow:
+        0 18px 42px rgba(4, 18, 11, 0.34),
+        inset 0 1px 0 rgba(223, 255, 236, 0.05);
+    }
+
+    #section-projects .project-card.glass-card-verdant::before {
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(142, 230, 176, 0.72) 24%,
+        rgba(196, 210, 111, 0.58) 76%,
+        transparent 100%
+      );
+    }
+
+    #section-projects .project-card.glass-card-verdant::after {
+      background:
+        radial-gradient(circle at 18% 18%, rgba(142, 230, 176, 0.14), transparent 30%),
+        radial-gradient(circle at 82% 24%, rgba(196, 210, 111, 0.12), transparent 26%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+    }
+
+    #section-projects .project-card.glass-card-verdant:hover {
+      background:
+        linear-gradient(150deg, rgba(24, 54, 42, 0.46), rgba(25, 31, 40, 0.42));
+      border-color: rgba(142, 230, 176, 0.27);
+      box-shadow:
+        0 20px 46px rgba(4, 18, 11, 0.38),
+        0 0 18px rgba(123, 211, 164, 0.12);
+    }
+
+    #section-projects .project-card.glass-card-verdant:hover::after {
+      opacity: 1;
+      transform: translateY(-2px) scale(1.03);
+    }
+
     #section-projects .project-card.glass-card-amber {
       background:
         linear-gradient(150deg, rgba(46, 33, 20, 0.38), rgba(24, 23, 31, 0.38));
@@ -985,6 +1027,48 @@
     }
 
     #section-projects .project-card.glass-card-amber:hover::after {
+      opacity: 1;
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    #section-projects .project-card.glass-card-rose {
+      background:
+        linear-gradient(150deg, rgba(48, 22, 36, 0.38), rgba(21, 24, 34, 0.38));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-color: rgba(226, 124, 158, 0.18);
+      box-shadow:
+        0 18px 42px rgba(18, 4, 12, 0.34),
+        inset 0 1px 0 rgba(255, 226, 236, 0.05);
+    }
+
+    #section-projects .project-card.glass-card-rose::before {
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(246, 139, 174, 0.72) 24%,
+        rgba(202, 95, 145, 0.6) 76%,
+        transparent 100%
+      );
+    }
+
+    #section-projects .project-card.glass-card-rose::after {
+      background:
+        radial-gradient(circle at 18% 18%, rgba(246, 139, 174, 0.14), transparent 30%),
+        radial-gradient(circle at 82% 24%, rgba(202, 95, 145, 0.14), transparent 26%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+    }
+
+    #section-projects .project-card.glass-card-rose:hover {
+      background:
+        linear-gradient(150deg, rgba(56, 26, 42, 0.46), rgba(24, 28, 40, 0.42));
+      border-color: rgba(246, 139, 174, 0.27);
+      box-shadow:
+        0 20px 46px rgba(18, 4, 12, 0.38),
+        0 0 18px rgba(226, 124, 158, 0.12);
+    }
+
+    #section-projects .project-card.glass-card-rose:hover::after {
       opacity: 1;
       transform: translateY(-2px) scale(1.03);
     }
@@ -1566,6 +1650,25 @@
             </div>
           </div>
 
+          <div class="project-card glass-card-verdant" data-tags="Web App" style="position:static;width:auto;top:auto;left:auto;">
+            <div class="card-top">
+              <h3 class="project-title">Qluster</h3>
+              <p class="project-description">
+                A Study group finder web-app for Queen's university students.
+              </p>
+            </div>
+            <div class="card-bottom">
+              <div class="card-links">
+                <a href="https://qluster.ca" class="project-link" target="_blank" rel="noopener noreferrer">Website</a>
+              </div>
+              <!-- card-tags hidden for now
+              <div class="card-tags">
+                <button class="genre-tag" type="button" data-filter="Web App">Web App</button>
+              </div>
+              -->
+            </div>
+          </div>
+
           <div class="project-card glass-card-amber" data-tags="Mathematics" style="position:static;width:auto;top:auto;left:auto;">
             <div class="card-top">
               <h3 class="project-title">MATH281 Helper</h3>
@@ -1577,6 +1680,26 @@
               <div class="card-links">
                 <a href="https://armitaafr.github.io/MATH281-/" class="project-link" target="_blank" rel="noopener noreferrer">Website</a>
                 <a href="https://github.com/ArmitaAfr/MATH281-" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+              <!-- card-tags hidden for now
+              <div class="card-tags">
+                <button class="genre-tag" type="button" data-filter="Mathematics">Mathematics</button>
+              </div>
+              -->
+            </div>
+          </div>
+
+          <div class="project-card glass-card-rose" data-tags="Mathematics" style="position:static;width:auto;top:auto;left:auto;">
+            <div class="card-top">
+              <h3 class="project-title">CISC271 Helper</h3>
+              <p class="project-description">
+                Notes and worked problems for every topic in the course &mdash; eigenvalues, SVD, PCA, regression, classification, and more. Built directly from Prof Ellis's course notes.
+              </p>
+            </div>
+            <div class="card-bottom">
+              <div class="card-links">
+                <a href="https://armitaafr.github.io/CISC271/" class="project-link" target="_blank" rel="noopener noreferrer">Website</a>
+                <a href="https://github.com/ArmitaAfr/CISC271" class="project-link" target="_blank" rel="noopener noreferrer">GitHub</a>
               </div>
               <!-- card-tags hidden for now
               <div class="card-tags">
@@ -1728,6 +1851,8 @@
       { title: "What's Behind the Glass", url: "./posts/whats-behind-the-glass.html" },
       { title: "TinyNav",                 url: "https://github.com/regularpooria/TinyNav" },
       { title: "MATH281",                 url: "https://armitaafr.github.io/MATH281-/" },
+      { title: "CISC271",                 url: "https://armitaafr.github.io/CISC271/" },
+      { title: "Qluster",                 url: "https://qluster.ca" },
     ];
 
     const randomLink = document.getElementById('tw-random-link');
