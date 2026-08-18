@@ -23,7 +23,9 @@ const routeMap = new Map([
   ["/posts/map-of-a-mind", "posts/map-of-a-mind.html"],
   ["/posts/map-of-a-mind.html", "posts/map-of-a-mind.html"],
   ["/posts/whats-behind-the-glass", "posts/whats-behind-the-glass.html"],
-  ["/posts/whats-behind-the-glass.html", "posts/whats-behind-the-glass.html"]
+  ["/posts/whats-behind-the-glass.html", "posts/whats-behind-the-glass.html"],
+  ["/posts/how-qluster-started", "posts/how-qluster-started.html"],
+  ["/posts/how-qluster-started.html", "posts/how-qluster-started.html"]
 ]);
 
 const mimeTypes = {
@@ -125,7 +127,9 @@ function getAvailablePort(startPort) {
         tester.close(() => resolve(port));
       });
 
-      tester.listen(port, "0.0.0.0");
+      // No host, so the probe binds exactly like the real server below (dual-stack "::").
+      // Passing a host here tests a different binding and misses conflicts on "::".
+      tester.listen(port);
     };
 
     tryPort(startPort);
