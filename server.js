@@ -18,6 +18,8 @@ const routeMap = new Map([
   ["/books.html", "books.html"],
   ["/projects", "projects.html"],
   ["/projects.html", "projects.html"],
+  ["/pomodorous", "pomodorous.html"],
+  ["/pomodorous.html", "pomodorous.html"],
   ["/screen", "screen.html"],
   ["/screen.html", "screen.html"],
   ["/posts/map-of-a-mind", "posts/map-of-a-mind.html"],
@@ -30,6 +32,7 @@ const routeMap = new Map([
 
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
   ".js": "application/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".txt": "text/plain; charset=utf-8",
@@ -148,6 +151,9 @@ async function main() {
     const staticFile = resolveStaticFile(requestUrl.pathname);
 
     if (staticFile) {
+      if (requestUrl.pathname === "/pomodorous" || requestUrl.pathname === "/pomodorous.html") {
+        res.setHeader("X-Robots-Tag", "noindex, nofollow, noarchive");
+      }
       sendFile(res, staticFile);
       return;
     }

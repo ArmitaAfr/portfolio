@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111318">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>25:00 — Pomodorous</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/pomodorous.css">
+
+  <script src="./vendor/twgl-full.min.js"></script>
+  <script src="./vendor/dat.gui.min.js"></script>
+  <script src="./vendor/pako.min.js"></script>
+  <script src="./vendor/UPNG.min.js"></script>
+  <script type="module" src="./scripts/pomodorous-background.js"></script>
+  <script src="./scripts/pomodorous.js" defer></script>
+</head>
+
+<body>
+  <canvas id="glCanvas" aria-hidden="true"></canvas>
+
+  <header class="app-header">
+    <a class="site-logo-link" href="./index.html" aria-label="Go to Armita's homepage">
+      <img src="./images/logo_transparent_noticeable_thickened_4x.png" alt="Armita">
+    </a>
+
+    <nav class="app-nav" aria-label="Pomodorous navigation">
+      <a class="nav-link" href="./index.html">Home</a>
+      <button class="nav-link settings-trigger" id="settings-trigger" type="button" aria-haspopup="dialog">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"></path>
+          <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.86 2.86-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21H9.55v-.09A1.7 1.7 0 0 0 8.5 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.86-2.86.06-.06A1.7 1.7 0 0 0 4.1 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H2.3V9.55h.1A1.7 1.7 0 0 0 4.1 8.5a1.7 1.7 0 0 0-.34-1.88l-.06-.06L6.56 3.7l.06.06A1.7 1.7 0 0 0 8.5 4.1a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V2.3h4.05v.1A1.7 1.7 0 0 0 15 4.1a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.86 2.86-.06.06A1.7 1.7 0 0 0 19.4 8.5a1.7 1.7 0 0 0 .6 1 1.7 1.7 0 0 0 1.1.4h.1v4.05h-.1A1.7 1.7 0 0 0 19.4 15Z"></path>
+        </svg>
+        <span>Settings</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="pomodorous-app">
+    <section class="timer-shell" aria-labelledby="pomodorous-title">
+      <h1 id="pomodorous-title">Pomodorous</h1>
+
+    <div class="mode-tabs" role="tablist" aria-label="Timer mode">
+      <button class="mode-tab is-active" id="tab-focus" type="button" role="tab" aria-selected="true" aria-controls="timer-panel" data-mode="focus">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="7"></circle>
+          <circle cx="12" cy="12" r="2"></circle>
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+        </svg>
+        <span class="desktop-label">Focus</span>
+        <span class="mobile-label">Focus</span>
+      </button>
+      <button class="mode-tab" id="tab-short" type="button" role="tab" aria-selected="false" aria-controls="timer-panel" data-mode="short">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M5 7h11v5a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V7Z"></path>
+          <path d="M16 9h2a2 2 0 0 1 0 4h-2M4 20h14"></path>
+        </svg>
+        <span class="desktop-label">Short break</span>
+        <span class="mobile-label">Short</span>
+      </button>
+      <button class="mode-tab" id="tab-long" type="button" role="tab" aria-selected="false" aria-controls="timer-panel" data-mode="long">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="m12 3-6.5 11h13L12 3Z"></path>
+          <path d="M12 9v9M8.5 18h7"></path>
+        </svg>
+        <span class="desktop-label">Long break</span>
+        <span class="mobile-label">Long</span>
+      </button>
+    </div>
+
+    <div class="focus-setup" id="focus-setup">
+      <p class="active-task-name" id="active-task-name">Select a task to begin</p>
+      <div class="focus-stepper" id="focus-stepper" aria-label="Focus length">
+        <button id="decrease-focus" type="button" aria-label="Decrease focus length by 5 minutes">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"></path></svg>
+        </button>
+        <div>
+          <strong id="focus-length-value">25 min</strong>
+          <span>Focus length</span>
+        </div>
+        <button id="increase-focus" type="button" aria-label="Increase focus length by 5 minutes">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <section class="timer-panel" id="timer-panel" role="tabpanel" aria-labelledby="tab-focus">
+      <div class="timer-stage">
+        <svg class="progress-ring" viewBox="0 0 420 420" aria-hidden="true">
+          <circle class="progress-ring-track" cx="210" cy="210" r="196"></circle>
+          <circle class="progress-ring-value" id="progress-ring-value" cx="210" cy="210" r="196"></circle>
+        </svg>
+
+        <div class="timer-readout" aria-live="off">
+          <span id="timer-display">25:00</span>
+          <span class="sr-only" id="timer-status">Focus timer ready for 25 minutes</span>
+        </div>
+
+        <div class="timer-actions">
+          <button class="primary-action" id="toggle-timer" type="button">
+            <svg class="play-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="m8 5 11 7-11 7V5Z"></path>
+            </svg>
+            <svg class="pause-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M8 5v14M16 5v14"></path>
+            </svg>
+            <span id="toggle-label">Start</span>
+          </button>
+
+          <div class="secondary-actions">
+            <button class="icon-action" id="reset-timer" type="button" aria-label="Reset timer" title="Reset timer (R)">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M4 4v6h6"></path>
+                <path d="M5.5 15a8 8 0 1 0 .4-6.5L4 10"></path>
+              </svg>
+            </button>
+            <button class="icon-action" id="skip-timer" type="button" aria-label="Skip to the next session" title="Skip to the next session">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="m5 5 10 7-10 7V5ZM18 5v14"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="session-progress">
+        <p id="session-label">Session 1 of 4</p>
+        <div class="session-dots" id="session-dots" aria-hidden="true">
+          <span class="is-current"></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </section>
+
+    <p class="keyboard-hint">
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+        <path d="M7 10h.01M10.5 10h.01M14 10h.01M17.5 10h.01M7 14h10"></path>
+      </svg>
+      <span><kbd>Space</kbd> to start <i>·</i> <kbd>R</kbd> to reset</span>
+    </p>
+    </section>
+
+    <aside class="task-shell" aria-labelledby="tasks-title">
+      <div class="task-heading">
+        <h2 id="tasks-title">Tasks</h2>
+        <span class="task-total" id="task-total">0s today</span>
+      </div>
+
+      <form class="task-form" id="task-form">
+        <label class="sr-only" for="task-input">Add a task</label>
+        <input id="task-input" name="task" type="text" maxlength="80" placeholder="Add a task" autocomplete="off" required>
+        <button type="submit" aria-label="Add task" title="Add task">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M12 5v14M5 12h14"></path>
+          </svg>
+        </button>
+      </form>
+
+      <p class="task-empty" id="task-empty">Add a task to start tracking.</p>
+      <ul class="task-list" id="task-list" aria-label="Study tasks"></ul>
+
+      <section class="study-history" aria-labelledby="history-title">
+        <div class="history-heading">
+          <h3 id="history-title">Last 7 days</h3>
+          <span id="week-total">0s</span>
+        </div>
+        <div class="week-chart" id="week-chart" role="img" aria-label="No study time in the last 7 days"></div>
+      </section>
+    </aside>
+  </main>
+
+  <dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+    <form id="settings-form">
+      <div class="dialog-heading">
+        <div>
+          <h2 id="settings-title">Timer settings</h2>
+          <p>Shape the rhythm around how you work.</p>
+        </div>
+        <button class="dialog-close" id="close-settings" type="button" aria-label="Close settings">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        </button>
+      </div>
+
+      <fieldset class="duration-fields">
+        <legend>Timer rhythm</legend>
+        <label>
+          <span>Focus</span>
+          <input id="focus-minutes" name="focus" type="number" min="1" max="120" inputmode="numeric" required>
+        </label>
+        <label>
+          <span>Short break</span>
+          <input id="short-minutes" name="short" type="number" min="1" max="60" inputmode="numeric" required>
+        </label>
+        <label>
+          <span>Long break</span>
+          <input id="long-minutes" name="long" type="number" min="1" max="90" inputmode="numeric" required>
+        </label>
+        <label>
+          <span>Sessions per cycle</span>
+          <input id="sessions-per-cycle" name="sessionsPerCycle" type="number" min="1" max="8" inputmode="numeric" required>
+        </label>
+      </fieldset>
+
+      <div class="setting-row">
+        <div>
+          <strong>Auto-start sessions</strong>
+          <span>Begin the next focus or break automatically.</span>
+        </div>
+        <label class="switch">
+          <input id="auto-start" name="autoStart" type="checkbox">
+          <span aria-hidden="true"></span>
+          <span class="sr-only">Auto-start sessions</span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <div>
+          <strong>Sound</strong>
+          <span>Play a soft chime when a session ends.</span>
+        </div>
+        <label class="switch">
+          <input id="sound-enabled" name="sound" type="checkbox">
+          <span aria-hidden="true"></span>
+          <span class="sr-only">Sound</span>
+        </label>
+      </div>
+
+      <div class="dialog-actions">
+        <button class="text-action" id="cancel-settings" type="button">Cancel</button>
+        <button class="save-action" type="submit">Save settings</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="sr-only" id="announcer" aria-live="polite"></div>
+</body>
+</html>

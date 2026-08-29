@@ -23,4 +23,5 @@ This project is organized into a clean active app structure plus separate legacy
 - The current project serves files from `public/`
 - Existing URLs like `/index.html`, `/books.html`, and `/posts/whats-behind-the-glass.html` are preserved
 - Clean aliases like `/`, `/books`, and `/posts/whats-behind-the-glass` also work
+- The personal Pomodorous focus timer is available directly at `/pomodorous` and is intentionally not linked from the public site
 - If the requested port is busy, the server automatically selects the next available port

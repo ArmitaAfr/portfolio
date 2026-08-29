@@ -5,7 +5,7 @@ import { CA } from "./ca.js"
 const $ = q => document.querySelector(q);
 
 export class Demo {
-    constructor(canvas, isScreenMode) {
+    constructor(canvas, isScreenMode, options = {}) {
         this.canvas = canvas;
         this.gl = canvas.getContext("webgl", { alpha: false });
 
@@ -13,6 +13,8 @@ export class Demo {
         this.stepPerFrame = 1;
 
         this.isScreenMode = isScreenMode;
+        this.shared = options.shared !== false;
+        this.initialModelId = Number.isInteger(options.modelId) ? options.modelId : 148;
         this.serverUrl = 'wss://hexells.glitch.me/';
         this.ws = null;
         this.controlWS = null;
@@ -31,7 +33,7 @@ export class Demo {
         //this.sonic = new Sonic(gl, ca);
         const canvas = this.canvas;
 
-        this.modelId = 148; // choose your favorite pattern
+        this.modelId = this.initialModelId; // choose your favorite pattern
         this.ca.paint(0, 0, -1, this.modelId);
 
         this.guesture = null;
@@ -80,7 +82,9 @@ export class Demo {
             if (e.key == 'z') this.switchModel(-1);
         });
 
-        this.connect();
+        if (this.shared) {
+            this.connect();
+        }
 
         requestAnimationFrame(()=>this.render());
     }
